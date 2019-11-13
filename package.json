@@ -1,0 +1,10 @@
+{
+  "name": "projetfinal",
+  "version": "1.0.0",
+  "description": "Covoiturage",
+  "main": "server.js",
+  "scripts": {},
+  "author": "Groupe E",
+  "license": "Apache 2.0",
+  "private": true
+}

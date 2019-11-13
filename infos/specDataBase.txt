@@ -1,0 +1,6 @@
+Nom du fichier dans lequel se trouve la base de données: Data
+Nom de la base de données: projetFinal
+Collection:
+	account
+	annonces
+(pour import les collection, faire mongoimport avec de la fake data et remove la data créée dans la collection)
