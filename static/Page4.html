@@ -1,0 +1,66 @@
+<!doctype html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Incident</title>
+    <link rel="stylesheet" href="Page4.css" type="text/css">
+    <link rel="stylesheet" href="navbar.css" type="text/css">
+  </head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <ul>
+      <li><a class="active" href="\">Incident</a></li>
+      <form action =firstpage>
+      <li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
+      <input class="btn" type="submit" value="Search"></input></li>
+      </form>
+      <li class="pos"><a class="active" href="/disconnect">Se déconnecter</a></li>
+      <li class="pos"><a class="active" href="\secpage">{{username}}</a></li>
+    </ul>
+</nav>
+    <h4>Jour actuel: <time>{{Date}}</time></h4>
+	<h4>Mes annonces</h4>
+	<table class="annoncestable">
+		<thead>
+			<th>Description</th>
+			<th class="adresse">Adresse</th>
+			<th class="username">Rapporté par</th>
+			<th class="date">Date</th>
+		</thead>
+		{{{annonces}}}
+	</table>
+<section>
+<table class="update" id="update">
+	<form action=sign_in>
+		<thead>
+			<th colspan=2><h3>Changer mes informations</h3></th>
+		</thead>
+		<tbody>
+			<tr><td class="connexion" colspan=2>{{signError}}</td></tr>
+			<tr>
+				<td><h4>Nom d'utilisateur</h4></td>
+				<td><input type="text" name="username" class="txt" placeholder="Nom d'utilisateur"></td>
+			</tr>
+			<tr>
+				<td><h4>Mot de passe</h4></td>
+				<td><input type="password" name="password" class="txt" placeholder="Mot de passe"></td>
+			</tr>
+			<tr>
+				<td><h4>Nom complet</h4></td>
+				<td><input type="text" name="full_name" class="txt" placeholder="Nom complet"></td>
+			</tr>
+			<tr>
+				<td><h4>Adresse e-mail</h4></td>
+				<td><input type="text" name="email" class="txt" placeholder="Email"></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="button"><input type="submit" name="new_account" value="s'enregister"></td>
+			</tr>
+		</tbody>
+	</form>
+</table>
+</section>
+</body>
+</html>

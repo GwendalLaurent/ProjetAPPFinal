@@ -1,0 +1,90 @@
+  
+h4{
+	display:inline;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+table{
+	background-color: #009933;
+	border-radius: 15px;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+thead{
+	color: white;
+	background-color:#003311;
+	z-index: 2;
+	width: 100%;
+}
+
+thead th{
+	padding-bottom: 0px;
+}
+
+th{
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	height: 2em;
+}
+
+tbody{
+	/*border: 1px solid black;*/
+	border-radius: 15px;
+	padding: 10px;
+	background-color: #009933; 
+	display: block;
+	/*z-index: 1;*/
+}
+
+.button{
+	text-align:center;
+}
+
+input[type="text"], input[type="password"]{
+	background-color: #8FBC8F;
+	color: white;
+	border-radius: 15px;
+	padding: 5px;
+	transition: background-color 0.3s;
+	border-style: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+	background-color: #3CB371;
+	outline: none;
+}
+
+input::placeholder{
+	color:white;
+}
+
+section input[type="submit"]{
+	background-color: #4CAF50;
+	color: white;
+	border-radius: 15px;
+	height: 50px;
+	width: 150px;
+	border: none;
+}
+
+section input[type="submit"]:hover{
+	background-color: #005f20;
+	border: 1px solid #004d1a;
+	transition: background-color 0.3s;
+}
+
+section input{
+	text-align:center;
+}
+
+#login{
+	margin-bottom: 5px;
+}
+
+.connexion{
+	color: red;
+	text-align: center; 
+}

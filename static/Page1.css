@@ -1,0 +1,49 @@
+table {
+  border: 5px solid black;
+  border-radius: 5px;
+  padding:5px;
+  background-color: lightgrey;
+  width: 100%;
+}
+
+th, td {
+  border: 2px solid black;
+}
+
+a:link {
+  color: blue;
+}
+
+a:visited {
+  color: green;
+}
+
+a:hover {
+  color: hotpink;
+}
+
+a:active {
+  color: blue;
+}
+
+.accidents{
+  table-layout: fixed;
+}
+
+.username{
+  width: 120px;
+  text-align: center;
+}
+
+.accidents td{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.date{
+  width: 250px; 
+}
+
+.adresse{
+  width: 250px;
+}
