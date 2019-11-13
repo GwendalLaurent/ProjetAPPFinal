@@ -1,2 +1,0 @@
-- clické sur les annonce et avoir une info dessus où on peut s'inscrire ou se résilier à l'annonce
-- cliquer sur l'adresse du lieu de rdv et lancer autaumatiquement cette adresse dans googlMap
