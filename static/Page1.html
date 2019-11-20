@@ -11,25 +11,43 @@
 <body>
 <nav class="navbar navbar-default" role="navigation">
     <ul>
-      <li><a class="active" href="\">Incident</a></li>
+      <li><a class="active" href="/">Incident</a></li>
       <form action =firstpage>
       <li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
       <input class="btn" type="submit" value="Search"></input></li>
       </form>
       <li class="pos"><a class="active" href="/disconnect">Se déconnecter</a></li>
-      <li class="pos"><a class="active" href="\secpage">{{username}}</a></li>
+      <li class="pos"><a class="active" href="/secpage">{{username}}</a></li>
     </ul>
 </nav>
-    <a href="\thirdpage"><h4>Lien pour ajouter un incident</h4></a>
     <h4>Jour actuel: <time>{{Date}}</time></h4>
-	<table class="accidents">
-		<thead>
-			<th>Description</th>
-			<th class="adresse">Adresse</th>
-			<th class="username">Rapporté par</th>
-			<th class="date">Date</th>
-		</thead>
-		{{{accidents}}}
-	</table>
+	<table class="annonces">
+    <thead>
+        <th>Conducteur</th>
+        <th>Date</th>
+        <th>Depart</th>
+        <th>Arrivée</th>
+        <th>Places</th>
+    </thead>
+    <tbody> <!--Only for test-->
+        <tr>
+            <td>Admin</td>
+            <td>14-11-2019</td>
+            <td>Ottignies</td>
+            <td>Louvain-la-neuve</td>
+            <td>2/5</td>
+        </tr>
+        <tr>
+          <td>Admin</td>
+          <td>14-11-2019</td>
+          <td>Ottignies</td>
+          <td>Louvain-la-neuve</td>
+          <td>2/5</td>
+      </tr>
+    </tbody>
+  </table>
+  <section>
+    <button class="btn" formaction="/test">Ajouter une annonce</button>
+  <section>
 </body>
 </html>

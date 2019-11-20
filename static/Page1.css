@@ -1,49 +1,84 @@
 table {
-  border: 5px solid black;
-  border-radius: 5px;
-  padding:5px;
-  background-color: lightgrey;
-  width: 100%;
+	background-color: lightgrey;
+	width: 100%;
+	border-collapse: collapse;
 }
 
-th, td {
-  border: 2px solid black;
+th{
+	background-color: SlateGray;
+	border-bottom: 2px solid black;
+	border-right: 5px solid SlateGray;
+	border-left: 5px solid SlateGray;
+}
+
+.annonces tr:nth-child(odd) td{
+	border-bottom: 2px solid Gainsboro;
+	padding: 0px;
+}
+
+.annonces tr:nth-child(odd){
+	background-color:LightSteelBlue;
+}
+
+.annonces tr:nth-child(even) td{
+	border-bottom: 2px solid grey;
+	padding: 0px;
+}
+
+.annonces tbody tr:hover{
+	background-color: LightSlateGray;
+	transition: background-color 0.5s;
 }
 
 a:link {
-  color: blue;
+	color: blue;
 }
 
 a:visited {
-  color: green;
+	color: green;
 }
 
 a:hover {
-  color: hotpink;
+	color: hotpink;
 }
 
 a:active {
-  color: blue;
+	color: blue;
 }
 
 .accidents{
-  table-layout: fixed;
+	table-layout: fixed;
 }
 
 .username{
-  width: 120px;
-  text-align: center;
+	width: 120px;
+	text-align: center;
 }
 
 .accidents td{
-  overflow: hidden;
-  text-overflow: ellipsis;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .date{
-  width: 250px; 
+	width: 250px; 
 }
 
 .adresse{
-  width: 250px;
+	width: 250px;
+}
+
+section{
+	position: absolute;
+	right:50px;
+}
+
+section .btn{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+section .btn:hover{
+	transition: background-color 0.5s;
+	transition: border 0.5s;
 }

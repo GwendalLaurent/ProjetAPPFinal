@@ -1,7 +1,7 @@
 body{
     margin:0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #bfbfbf;
+    background-color: LightGray;
 }
 
 nav {
@@ -9,7 +9,7 @@ nav {
 	margin: 0;
 	padding: 0;
 	width: 100%;
-	background-color: #a6a6a6;
+	background-color: DarkGray;
 	height: 5%;
     overflow: auto;
     width: 100%;
@@ -42,13 +42,13 @@ li a:hover:not(.active) {
 
 li a.active {
     color: white;
-    background-color: #4CAF50;
+    background-color: LightSlateGray;
     border-bottom-right-radius: 5px;
 
 }
 
 li a:hover{
-    background-color:  #00802b;
+    background-color: SlateGray;
     transition: background-color 0.3s;
 }
 
@@ -66,7 +66,7 @@ li a:hover{
     margin-top: 5px;
     padding: 10px 10px; 
     line-height: 17px;
-    background-color: #8FBC8F;
+    background-color: Silver;
     outline: none;
     border-style: none;
     border-top-left-radius: 5px;
@@ -74,13 +74,13 @@ li a:hover{
 }
 
 .search_bar:focus{
-    background-color: #3CB371;
+    background-color: darkgrey;
     transition: background-color 0.3s;
 }
 
 .btn{
     margin-top: 5px;
-    background-color: #4CAF50; 
+    background-color: LightSlateGray; 
     border: none;
     color: white;
     line-height: 17px;
@@ -91,11 +91,11 @@ li a:hover{
 }
 
 .btn:hover{
-    background-color: #009933;
-    border: 1px solid #004d1a;
+    background-color: SlateGray;
+    border: 1px solid grey;
 }
 
 .disconnect{
-    background-color: #009932;
+    background-color: LightSlateGray;
     height: 80%;
 }
