@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Incident</title>
+    <link rel="stylesheet" href="Page5.css" type="text/css">
+    <link rel="stylesheet" href="navbar.css" type="text/css">
+  </head>
+<body>
+  <nav class="navbar navbar-default" role="navigation">
+      <ul>
+        <li><a class="active" href="\">profil</a></li>
+        <form action =firstpage>
+        <li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
+        <input class="btn" type="submit" value="Search"></input></li>
+        </form>
+        <li class="pos"><a class="active" href="/disconnect">Se déconnecter</a></li>
+        <li class="pos"><a class="active" href="\secpage">{{username}}</a></li>
+      </ul>
+  </nav>
+<h4>Jour actuel: <time>{{Date}}</time></h4>
+<section class="sec1">
+    <header>
+      <center><h1><u> Informations sur l'annonce :</u></h1></center>
+    </header>
+    <ol>
+      <h1><u> Description de l'annonce : </u></h1>
+      <li class="li1">Date de départ : {{Date}}</li>
+      <li class="li1">Lieu de départ : {{Depart}}</li>
+      <li class="li1">Lieu d'arriver : {{Arriver}}</li>
+      <li class="li1">GSM : {{Gsm}}</li>
+      <li class="li1">Nombre de place(s) restante(s): {{Place}}</li>
+    </ol>
+  <center><article>
+      <img src="" alt="Avatar">
+      <h4>nom du conducteur : {{??}}</h4>
+      <center><input class = "inscr" type="submit" name="insciption" value={{variable}}></center>
+  </article></center>
+</section>
+<footer>
+  <center><h3><u> Lieu du RDV :</u></h3></center>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10115.174168896887!2d4.603077645126183!3d50.668093722256394!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c17e05f083ac27%3A0x171325f53f02977e!2sLouvain-la-Neuve%2C%201348%20Ottignies-Louvain-la-Neuve!5e0!3m2!1sfr!2sbe!4v1574269919141!5m2!1sfr!2sbe" width="400" height="300" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+</body>
