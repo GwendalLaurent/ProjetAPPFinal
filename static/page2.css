@@ -6,7 +6,7 @@ h4{
 }
 
 table{
-	background-color: #009933;
+	background-color: DarkGray;
 	border-radius: 15px;
 	border-collapse: collapse;
 	margin-left: auto;
@@ -15,7 +15,7 @@ table{
 
 thead{
 	color: white;
-	background-color:#003311;
+	background-color:SlateGray;
 	z-index: 2;
 	width: 100%;
 }
@@ -34,7 +34,7 @@ tbody{
 	/*border: 1px solid black;*/
 	border-radius: 15px;
 	padding: 10px;
-	background-color: #009933; 
+	background-color: DarkGray; 
 	display: block;
 	/*z-index: 1;*/
 }
@@ -44,7 +44,7 @@ tbody{
 }
 
 input[type="text"], input[type="password"]{
-	background-color: #8FBC8F;
+	background-color: Silver;
 	color: white;
 	border-radius: 15px;
 	padding: 5px;
@@ -53,7 +53,7 @@ input[type="text"], input[type="password"]{
 }
 
 input[type="text"]:focus, input[type="password"]:focus{
-	background-color: #3CB371;
+	background-color: darkgrey;
 	outline: none;
 }
 
@@ -62,7 +62,7 @@ input::placeholder{
 }
 
 section input[type="submit"]{
-	background-color: #4CAF50;
+	background-color: LightSlateGray;
 	color: white;
 	border-radius: 15px;
 	height: 50px;
@@ -71,8 +71,8 @@ section input[type="submit"]{
 }
 
 section input[type="submit"]:hover{
-	background-color: #005f20;
-	border: 1px solid #004d1a;
+	background-color: SlateGray;
+	border: 1px solid grey;
 	transition: background-color 0.3s;
 }
 
@@ -87,4 +87,8 @@ section input{
 .connexion{
 	color: red;
 	text-align: center; 
+}
+
+section{
+	padding-top: 5%;
 }
