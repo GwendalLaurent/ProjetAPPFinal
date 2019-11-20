@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Identification</title>
+	<link rel="stylesheet" href="page2.css" type="text/css">
+	<link rel="stylesheet" href="navbar.css" type="text/css">
+	<script type="text/javascript" src="connection.js"></script>
+  </head>
+  <body>
+	<nav class="navbar navbar-default" role="navigation">
+		<ul>
+		  <li><a class="active" href="\firstpage">Incident</a></li>
+		  <form action =firstpage>
+			<li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
+			<input class="btn" type="submit" value="Search"></input></li>
+			</form>
+		</ul>
+	</nav>
+	<section>
+		<table class="sign" id="login">
+		<form action=log>
+			<thead>
+				<tr>
+					<th colspan=2><h3>Compte existant</h3></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr><td class="connexion" colspan=2>{{tried}}</td></tr>
+				<tr>
+				<td><h4>Nom d'utilisateur</h4></td>
+				<td><input type="text" name="username" class="txt" placeholder="Nom d'utilisateur"></td>
+				</tr>
+				<tr>
+				<td><h4>Mot de passe</h4></td>
+				<td><input type="password" name="password" class="txt" placeholder="Mot de passe"></td>
+				</tr>
+				<td colspan=2 class="button"><input type="submit" name="connection" value="s'identifier"></td>
+			</tbody>
+		</form>
+		</table>
+		<table class="sign" id="sign_in">
+		<form action=sign_in>
+			<thead>
+				<th colspan=2><h3>Nouveau compte</h3></th>
+			</thead>
+			<tbody>
+				<tr><td class="connexion" colspan=2>{{signError}}</td></tr>
+				<tr>
+					<td><h4>Nom d'utilisateur</h4></td>
+					<td><input type="text" name="username" class="txt" placeholder="Nom d'utilisateur"></td>
+				</tr>
+				<tr>
+					<td><h4>Mot de passe</h4></td>
+					<td><input type="password" name="password" class="txt" placeholder="Mot de passe"></td>
+				</tr>
+				<tr>
+					<td><h4>Nom complet</h4></td>
+					<td><input type="text" name="full_name" class="txt" placeholder="Nom complet"></td>
+				</tr>
+				<tr>
+					<td><h4>Adresse e-mail</h4></td>
+					<td><input type="text" name="email" class="txt" placeholder="Email"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="button"><input type="submit" name="new_account" value="s'enregister"></td>
+				</tr>
+			</tbody>
+		</form>
+		</table>
+	</section>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+h4{
+	display:inline;
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+table{
+	background-color: DarkGray;
+	border-radius: 15px;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+thead{
+	color: white;
+	background-color:SlateGray;
+	z-index: 2;
+	width: 100%;
+}
+
+thead th{
+	padding-bottom: 0px;
+}
+
+th{
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	height: 2em;
+}
+
+tbody{
+	/*border: 1px solid black;*/
+	border-radius: 15px;
+	padding: 10px;
+	background-color: DarkGray; 
+	display: block;
+	/*z-index: 1;*/
+}
+
+.button{
+	text-align:center;
+}
+
+input[type="text"], input[type="password"]{
+	background-color: Silver;
+	color: white;
+	border-radius: 15px;
+	padding: 5px;
+	transition: background-color 0.5s;
+	border-style: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus{
+	background-color: darkgrey;
+	outline: none;
+}
+
+input::placeholder{
+	color:white;
+}
+
+section input[type="submit"]{
+	background-color: LightSlateGray;
+	color: white;
+	border-radius: 15px;
+	height: 50px;
+	width: 150px;
+	border: none;
+}
+
+section input[type="submit"]:hover{
+	background-color: SlateGray;
+	border: 1px solid grey;
+	transition: background-color 0.3s;
+}
+
+section input{
+	text-align:center;
+}
+
+#login{
+	margin-bottom: 5px;
+}
+
+.connexion{
+	color: red;
+	text-align: center; 
+}
+
+section{
+	padding-top: 5%;
+}
