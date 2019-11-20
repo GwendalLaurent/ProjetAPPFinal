@@ -16,8 +16,8 @@
       <li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
       <input class="btn" type="submit" value="Search"></input></li>
       </form>
-      <li class="pos"><a class="active" href="/disconnect">Se déconnecter</a></li>
-      <li class="pos"><a class="active" href="/secpage">{{username}}</a></li>
+      <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
+      <li class="pos"><a class="active" href="/fourthpage">{{username}}</a></li>
     </ul>
 </nav>
     <h4>Jour actuel: <time>{{Date}}</time></h4>
@@ -47,7 +47,9 @@
     </tbody>
   </table>
   <section>
-    <button class="btn" formaction="/test">Ajouter une annonce</button>
+	<form action="/thirdpage">
+    <button class="btn">Ajouter une annonce</button>
+	</form>
   <section>
 </body>
 </html>
