@@ -2,14 +2,14 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>Ajout d'une annonce</title>
+    <title>Page de registration d'un incident</title>
     <link rel="stylesheet" href="Page3.css" type="text/css">
     <link rel="stylesheet" href="navbar.css" type="text/css">
   </head>
     <body>
       <nav class="navbar navbar-default" role="navigation">
       	<ul>
-      	  <li><a class="active" href="\">Annonces</a></li>
+      	  <li><a class="active" href="\">Incident</a></li>
           <form action =firstpage>
           <li><input class="search_bar" name="search" type="search" placeholder="Search" aria-label="Search">
           <input class="btn" type="submit" value="Search"></input></li>
@@ -18,44 +18,34 @@
       	  <li class="pos"><a class="active" href="\secpage">{{username}}</a></li>
       	</ul>
       </nav>
-      <section>
-      <table class="table1">
+      <table>
         <form action = "submit">
-        <thead>
+        <h1><center>Signaler un nouvel incident:</center></h1>
+        <h4 class="h4"><center>{{error1}}</center></h4>
+        <table class = "table1">
           <tr>
-            <th>
-              Poster votre annonce
-            </th>
-          </tr>
-        </thead>
-          <tr class="alignement">
-            <td colspan="2">{{error1}}</td>
+            <th colspan 2><h2>Description : </h2></th>
           </tr>
           <tr>
-            <td>Ville de départ</td>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <td>Ville d'arrivée</td>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <td>Lieu de rendez-vous</td>
-            <td><input type="text"></td>
-          </tr>
-          <tr>
-            <td>Date et heure de départ</td>
-            <td><input type="datetime-local" min="{{date}}"></td>
-          </tr>
-          <tr>
-            <td>Place disponible <br /> (avec vous dans la voiture)</td>
-            <td><input type="number" min="1"></td>
-          </tr>
-          <tr class="alignement">
-            <td colspan="2"><input type="submit" value="Poster l'annonce"></td>
+            <td><textarea input="textarea" type="text" name="description" rows= "20" cols = "100" placeholder="Veuilliez entrez une description complète et précise de votre incident." style="color:white" ></textarea></td>
           </tr>
         </table>
+          <p>
+          </p>
+        <table class = "table1">
+          <tr>
+            <th colspan 2><h2>Adresse :</h2></th>
+          </tr>
+          <tr>
+            <td><textarea input="textarea" type="text" name="adresse" rows= "20" cols = "100" placeholder = "Où cela s'est il passé ?" style="color:white"></textarea></td>
+          </tr>
+        </table>
+        <table>
+        <p>
+        </p>
+        <td><input class = "td1" type="submit" name="new_incident" value="soumettre"></td>
+		</table>
+      </table>
       </form>
-      </section>
 	</body>
 </html>
