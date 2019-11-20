@@ -102,12 +102,12 @@ MongoClient.connect(url, function(err, db){
 				for(var i=0;i<result.length;i++){
 					table += "<tr><td>" + result[i].description + "</td><td class='adresse'>" + result[i].Adresse + "</td><td class='username'>" + result[i].user + "</td><td class='date'>" + result[i].date + "</td></tr>"
 				}
-				res.render('Page1.html', {username:req.session.username, Date:getDate(), accidents:table, Disco:"Se déconnecter"});
+				res.render('Page1.html', {username:req.session.username, Date:getDate(), annonces:table, Disco:"Se déconnecter"});
 			})
 			
 		}
 		else{
-			res.render('Page1.html',{Date:getDate(), accidents:table, Disco:"Se connecter"});
+			res.render('Page1.html',{Date:getDate(), Disco:"Se connecter"});
 		}
 	})
 
@@ -133,7 +133,7 @@ MongoClient.connect(url, function(err, db){
         dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
             if(err) throw err;
             if (result.length != 0){
-                res.render('Page4.html', {username:sesUsername});
+                res.render('Page4.html', {Date:getDate(), username:sesUsername});
             }
             else{
                 res.render('Page2.html', {tried:"Veuillez vous connecter"});
