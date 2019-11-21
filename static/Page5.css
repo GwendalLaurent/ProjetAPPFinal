@@ -3,35 +3,37 @@
   width : 100%;
 }
 
-article{
+div{
 float : right;
 padding: 20px;
 width:30%;
 background-color: #f1f1f1;
 height: 200px;
-margin-right: 150px;
+margin-right: 300px;
 margin-top: 50px;
+border-radius: 25px;
 }
 .li1{
 float :none;
 display :block;
-
 font-size: 150%;
 
 }
 footer{
-  float: right;
-  margin-right: 250px;
+  float: left;
+  margin-left: 400px;
   margin-top: 50px;
   border: 1px solid black;
+  border-radius: 10px;
+  background: LightSteelBlue
 }
 ol{
 float: left;
 width: 30%;
-background: #ccc;
+background: LightSlateGray;
 border: 1px solid black;
 border-radius: 25px;
-margin-left: 150px;
+margin-left: 300px;
 margin-top: 50px;
 }
 .inscr{
@@ -42,4 +44,12 @@ border: 1px solid black;
 text-align : center;
 background-color: #4CAF50;
 color: white;
+}
+.inscr:hover{
+  background-color: #005f20;
+  border: 1px solid #004d1a;
+  transition: background-color 0.3s;
+}
+iframe{
+border-radius: 10px;
 }
