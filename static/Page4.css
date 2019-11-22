@@ -1,55 +1,75 @@
+/* Style général */
+th{
+	background-color: SlateGray;
+}
+
+/* Tableau des annonces*/
+
 .annoncestable {
-  border: 5px solid black;
-  border-radius: 5px;
-  padding:5px;
-  background-color: lightgrey;
-  width: 100%;
+	background-color: lightgrey;
+	border-collapse: collapse;
+	width: 100%;
 }
 
-th, td {
-  border: 2px solid black;
+.annoncestable th{
+	border-bottom: 2px solid black;
+	border-right: 5px solid SlateGray;
+	border-left: 5px solid SlateGray;
 }
 
-a:link {
-  color: blue;
+.annoncestable tr{
+	text-align: center;
 }
 
-a:visited {
-  color: green;
+.annoncestable tr:nth-child(odd) td{
+	border-bottom: 2px solid Gainsboro;
+	padding: 0px;
 }
 
-a:hover {
-  color: hotpink;
+.annoncestable tr:nth-child(odd){
+	background-color:LightSteelBlue;
 }
 
-a:active {
-  color: blue;
+.annoncestable tr:nth-child(even) td{
+	border-bottom: 2px solid grey;
+	padding: 0px;
 }
 
-.accidents{
-  table-layout: fixed;
+.annoncestable tbody tr:hover{
+	background-color: LightSlateGray;
+	transition: background-color 0.5s;
 }
 
-.username{
-  width: 120px;
-  text-align: center;
+.change{
+	width: 99%;
+	height: 99%;
+	background: none;
+	border: none;
+	outline: none;
 }
 
-.accidents td{
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* update des informations */
+
+.update {
+	margin-top: 20px;
+	border-radius: 15px;
+	border-collapse: collapse;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	color: white;
+	background-color: DarkGray;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
 }
 
-.date{
-  width: 250px; 
-}
-
-.adresse{
-  width: 250px;
+.update th{
+	border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
 }
 
 input[type="text"], input[type="password"]{
-	background-color: #8FBC8F;
+	background-color: Silver;
 	color: white;
 	border-radius: 15px;
 	padding: 5px;
@@ -58,7 +78,7 @@ input[type="text"], input[type="password"]{
 }
 
 input[type="text"]:focus, input[type="password"]:focus{
-	background-color: #3CB371;
+	background-color: Gray;
 	outline: none;
 }
 
@@ -66,17 +86,8 @@ input::placeholder{
 	color:white;
 }
 
-.update {
-	margin-top: 20px;
-	background-color: #009933;
-	border-radius: 15px;
-	border-collapse: collapse;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-section input[type="submit"]{
-	background-color: #4CAF50;
+table input[type="submit"]{
+	background-color: LightSlateGray;
 	color: white;
 	border-radius: 15px;
 	height: 50px;
@@ -84,10 +95,10 @@ section input[type="submit"]{
 	border: none;
 }
 
-section input[type="submit"]:hover{
-	background-color: #005f20;
-	border: 1px solid #004d1a;
-	transition: background-color 0.3s;
+table input[type="submit"]:hover{
+	background-color: SlateGray;
+	border: 1px solid grey;
+	transition: background-color 0.5s;
 }
 
 section input{

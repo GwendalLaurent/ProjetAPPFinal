@@ -74,7 +74,7 @@ li a:hover{
 }
 
 .search_bar:focus{
-    background-color: darkgrey;
+    background-color: Gray;
     transition: background-color 0.3s;
 }
 
