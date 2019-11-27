@@ -17,7 +17,7 @@
       <input class="btn" type="submit" value="Search"></input></li>
       </form>
       <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
-      <li class="pos"><a class="active" href="/fourthpage">{{username}}</a></li>
+      {{{username}}}
     </ul>
 </nav>
     <h4>Jour actuel: <time>{{Date}}</time></h4>
@@ -30,20 +30,7 @@
         <th>Places</th>
     </thead>
     <tbody> <!--Only for test-->
-        <tr>
-            <td>Admin</td>
-            <td>14-11-2019</td>
-            <td>Ottignies</td>
-            <td>Louvain-la-neuve</td>
-            <td>2/5</td>
-        </tr>
-        <tr>
-          <td>Admin</td>
-          <td>14-11-2019</td>
-          <td>Ottignies</td>
-          <td>Louvain-la-neuve</td>
-          <td>2/5</td>
-      </tr>
+        {{{annonces}}}
     </tbody>
   </table>
   <section>
