@@ -6,6 +6,7 @@ var app = express ()
 var MongoClient = require('mongodb').MongoClient
 var Server = require('mongodb').Server;
 var url = 'mongodb://localhost:27017'
+var showInfos = require("./showInfos");
 
 function getDate(){
     var options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -33,7 +34,7 @@ MongoClient.connect(url, function(err, db){
     }));
 
     app.get('/', function(req, res){
-        res.render('Page1.html',{Date:getDate(), Disco:"Se connecter"});
+        res.redirect('/firstpage');
     })
 	
 	app.get('/sign_in', function(req, res){
@@ -111,25 +112,7 @@ MongoClient.connect(url, function(err, db){
 		}
 	})
 	
-	app.get('/firstpage', function(req, res) {
-		if(req.session.username){
-			var query = {};
-			if(req.query.search != null){
-				query.description = req.query.search;
-			}
-			dbo.collection("annonces").find(query).toArray(function(err, result){
-				var table = "";
-				for(var i=0;i<result.length;i++){
-					table += "<tr><td>" + result[i].description + "</td><td class='adresse'>" + result[i].Adresse + "</td><td class='username'>" + result[i].user + "</td><td class='date'>" + result[i].date + "</td></tr>"
-				}
-				res.render('Page1.html', {username:req.session.username, Date:getDate(), annonces:table, Disco:"Se déconnecter"});
-			})
-			
-		}
-		else{
-			res.render('Page1.html',{Date:getDate(), Disco:"Se connecter"});
-		}
-	})
+	app.get('/firstpage', showInfos.firstPage);
 
     app.get('/secpage', function(req, res) {
         res.render('Page2.html');
