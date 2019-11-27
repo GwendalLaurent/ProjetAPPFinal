@@ -105,7 +105,7 @@ MongoClient.connect(url, function(err, db){
 			dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
 				var GSM = result[0].Gsm;
 				console.log(result[0].Gsm);
-				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart, larrivee : Varrivee, places: nbrPlaces});
+				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart, larrivee : Varrivee, reserved: [], places: nbrPlaces});
 				console.log ("added new annonce.");
 				res.render('Page3.html', {username: sesUsername, error1 : "Informations bien enregistrées !"});
 			})
@@ -144,27 +144,28 @@ MongoClient.connect(url, function(err, db){
         })
     })
 
-    app.use(express.static("static"));
-    app.listen(8080);
+    app.get('/fifthpage', function(req, res) { 
+        var user = req.query.user; // nom du posteur de l'annonce
+        var Vdepart = req.query.Vdepart;
+        var Varrivee = req.query.Varrivee;
+        var DateDepart = req.query.DateDepart;
+        var nbrPlaces = req.query.nbrPlaces;
+        var sesUsername = req.session.username; // nom de l'utilisateur
+        dbo.collection("annonces").find({user : sesUsername, ddepart:DateDepart, ldepart : Vdepart, larrivee : Varrivee, places: nbrPlaces}).toArray(function(err, result){
+          if(err) throw err;
+          var gsm = result[0].gsm;
+          var placesR = result[0].placesr;
+          var driver = result[0].user;
+          var avatar = result[0].avatar;
+          // faire : la varible "varibale" qui varie ne fonction de si la personne à deja réserver ou plus de place ou encore réservé.
+        })
+        dbo.collection("account").find({username : user}).toArray(function(err, result){
+          if (err) throw err;
+          var avatar = result[0].avatar;
+        })
+        res.render('Page5.html', {ddepart: DateDdepart, ldepart: VDepart, larrivee: VArrivee, gsm: gsm, placesr: nbrplaces, driver : user, sesUsername : sesUsername, avatar: avatar })
+      })
 })
-app.get('/fifthpage', function(req, res) {
-  var user = req.query.user; // nom du posteur de l'annonce
-  var Vdepart = req.query.Vdepart;
-  var Varrivee = req.query.Varrivee;
-  var DateDepart = req.query.DateDepart;
-  var nbrPlaces = req.query.nbrPlaces;
-  var sesUsername = req.session.username; // nom de l'utilisateur
-  dbo.collection("annonces").find({user : sesUsername, ddepart:DateDepart, ldepart : Vdepart, larrivee : Varrivee, places: nbrPlaces}).toArray(function(err, result){
-    if(err) throw err;
-    var gsm = result[0].gsm;
-    var placesR = result[0].placesr;
-    var driver = result[0].user;
-    var avatar = result[0].avatar;
-    // faire : la varible "varibale" qui varie ne fonction de si la personne à deja réserver ou plus de place ou encore réservé.
-  })
-  dbo.collection("account").find({username : user}).toArray(function(err, result){
-    if (err) throw err;
-    var avatar = result[0].avatar;
-  })
-  res.render('Page5.html', {ddepart: DateDdepart, ldepart: VDepart, larrivee: VArrivee, gsm: gsm, placesr: nbrplaces, driver : user, sesUsername : sesUsername, avatar: avatar })
-})
+
+app.use(express.static("static"));
+app.listen(8080);

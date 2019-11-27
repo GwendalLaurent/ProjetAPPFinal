@@ -18,15 +18,18 @@ function annoncesHtml(queryRes){
     let toRet = ""
     console.log(queryRes);
     for(var i=0;i<queryRes.length;i++){
-        toRet += "<tr><td>" + queryRes[i].conducteur + "</td><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved, queryRes[i].places) + "</td></tr>"
+        toRet += "<tr onClick='document.location=\"/fifthpage?id="+ queryRes[i].ObjectId +"\"'><td>" + queryRes[i].conducteur + "</td><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved, queryRes[i].places) + "</td></tr>"
     }
     return toRet;
 }
 
-exports.firstPage = function(req, res){
+exports.firstPage = function(req, res, alreadyChecked = false){
     sesUsername = req.session.username;
     let queryRes, user, connect;
     // console.log(sesUsername)
+    if(alreadyChecked){
+
+    }
     dbo.collection("account").find({username:sesUsername}).toArray(function(err, queryUsername){
         if(err) throw err;
         if(queryUsername.length != 0){
