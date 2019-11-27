@@ -11,24 +11,26 @@ function usernameHtml(username){
 }
 
 function placeLeft(reserved, available){
-    return available - reserved.length + '/' + available;
+    return available - 2 + '/' + available; // TODO reserved.length when reserved will be a list 
 }
 
 function annoncesHtml(queryRes){
     let toRet = ""
-    for(var i=0;i<queryRes;i++){
-        toRet += "<tr><td>" + queryRes[i].conducteur + "</td><td>" + result[i].ddepart + "</td><td>" + result[i].ldepart + "</td><td>" + result[i].larrivee + "</td><td>" + placeLeft(result.reserved, result.places) + "</td></tr>"
+    console.log(queryRes);
+    for(var i=0;i<queryRes.length;i++){
+        toRet += "<tr><td>" + queryRes[i].conducteur + "</td><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved, queryRes[i].places) + "</td></tr>"
     }
+    return toRet;
 }
 
 exports.firstPage = function(req, res){
     sesUsername = req.session.username;
     let queryRes, user, connect;
-    console.log(sesUsername)
+    // console.log(sesUsername)
     dbo.collection("account").find({username:sesUsername}).toArray(function(err, queryUsername){
         if(err) throw err;
         if(queryUsername.length != 0){
-            console.log(queryUsername);
+            // console.log(queryUsername);
             user = usernameHtml(sesUsername)
             connect = "Se Déconnecter";
         }else{
@@ -41,7 +43,8 @@ exports.firstPage = function(req, res){
         }
         dbo.collection("annonces").find(query).toArray(function(err, result){
             queryRes = result;
+            res.render("Page1.html",{username:user, annonces: annoncesHtml(queryRes), Date:getDate(), Disco : connect});
         })
-        res.render("Page1.html",{username:user, annonces: annoncesHtml(queryRes), Date:getDate(), Disco : connect})
+        
     });
 }
