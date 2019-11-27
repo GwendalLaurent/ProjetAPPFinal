@@ -36,7 +36,7 @@ MongoClient.connect(url, function(err, db){
     app.get('/', function(req, res){
         res.redirect('/firstpage');
     })
-	
+
 	app.get('/sign_in', function(req, res){
         var reqUsername = req.query.username;
         var reqPassword = req.query.password;
@@ -64,7 +64,7 @@ MongoClient.connect(url, function(err, db){
             }
         });
     })
-	
+
 	app.get('/log', function(req, res){
         var reqUsername = req.query.username;
         var reqPassword = req.query.password;
@@ -86,12 +86,12 @@ MongoClient.connect(url, function(err, db){
             }
         });
     })
-	
+
 	app.get('/disconnect', function(req, res){
         req.session.username = "";
         res.redirect('/secpage');
     })
-	
+
 	app.get('/submit', function(req, res){
 		var Vdepart = req.query.Vdepart;
 		var Varrivee = req.query.Varrivee;
@@ -111,13 +111,13 @@ MongoClient.connect(url, function(err, db){
 			})
 		}
 	})
-	
+
 	app.get('/firstpage', showInfos.firstPage);
 
     app.get('/secpage', function(req, res) {
         res.render('Page2.html');
     })
-	
+
 	app.get('/thirdpage', function(req, res) {
         sesUsername = req.session.username;
         dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
@@ -130,7 +130,7 @@ MongoClient.connect(url, function(err, db){
             }
         })
     })
-	
+
 	app.get('/fourthpage', function(req, res) {
         sesUsername = req.session.username;
         dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
@@ -146,4 +146,25 @@ MongoClient.connect(url, function(err, db){
 
     app.use(express.static("static"));
     app.listen(8080);
+})
+app.get('/fifthpage', function(req, res) {
+  var user = req.query.user; // nom du posteur de l'annonce
+  var Vdepart = req.query.Vdepart;
+  var Varrivee = req.query.Varrivee;
+  var DateDepart = req.query.DateDepart;
+  var nbrPlaces = req.query.nbrPlaces;
+  var sesUsername = req.session.username; // nom de l'utilisateur
+  dbo.collection("annonces").find({user : sesUsername, ddepart:DateDepart, ldepart : Vdepart, larrivee : Varrivee, places: nbrPlaces}).toArray(function(err, result){
+    if(err) throw err;
+    var gsm = result[0].gsm;
+    var placesR = result[0].placesr;
+    var driver = result[0].user;
+    var avatar = result[0].avatar;
+    // faire : la varible "varibale" qui varie ne fonction de si la personne à deja réserver ou plus de place ou encore réservé.
+  })
+  dbo.collection("account").find({username : user}).toArray(function(err, result){
+    if (err) throw err;
+    var avatar = result[0].avatar;
+  })
+  res.render('Page5.html', {ddepart: DateDdepart, ldepart: VDepart, larrivee: VArrivee, gsm: gsm, placesr: nbrplaces, driver : user, sesUsername : sesUsername, avatar: avatar })
 })
