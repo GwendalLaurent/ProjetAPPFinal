@@ -53,7 +53,7 @@ MongoClient.connect(url, function(err, db){
                     res.render('Page2.html', {signError: "Veuillez remplir tous les champs"});
                 }
                 else{
-                    var userAcc = {username: reqUsername, password: reqPassword, fullName: req.query.full_name, email: req.query.email};
+                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email};
                     dbo.collection("account").insertOne(userAcc, function(err, res) {
                         if (err) throw err;
                         console.log("added new user");
@@ -90,6 +90,26 @@ MongoClient.connect(url, function(err, db){
         req.session.username = "";
         res.redirect('/secpage');
     })
+	
+	app.get('/submit', function(req, res){
+		var Vdepart = req.query.Vdepart;
+		var Varrivee = req.query.Varrivee;
+		var DateDepart = req.query.DateDepart;
+		var nbrPlaces = req.query.nbrPlaces;
+		var sesUsername = req.session.username;
+		if (Vdepart == "" || Varrivee == "" || DateDepart == "" || nbrPlaces == ""){
+		  res.render('Page3.html', {username: sesUsername, error1 : "ERROR : Veuilliez remplir tous les champs demandés"});
+		}
+		else{
+			dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
+				var GSM = result[0].Gsm;
+				console.log(result[0].Gsm);
+				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart, larrivee : Varrivee, places: nbrPlaces});
+				console.log ("added new annonce.");
+				res.render('Page3.html', {username: sesUsername, error1 : "Informations bien enregistrées !"});
+			})
+		}
+	})
 	
 	app.get('/firstpage', function(req, res) {
 		if(req.session.username){
