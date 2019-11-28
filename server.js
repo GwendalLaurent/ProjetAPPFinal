@@ -4,6 +4,7 @@ var session = require('express-session');
 var app = express ()
 //MangoDB connection
 var MongoClient = require('mongodb').MongoClient
+var mongo = require('mongodb');
 var Server = require('mongodb').Server;
 var url = 'mongodb://localhost:27017'
 var showInfos = require("./showInfos");
@@ -145,8 +146,9 @@ MongoClient.connect(url, function(err, db){
     })
 
     app.get('/fifthpage', function(req, res) {
-        var id = req.query.id;
-        dbo.collection("annonces").find({_id : id}).toArray(function(err, result){
+        sesUsername = req.session.username;
+        var id = new mongo.ObjectId(req.query.id);
+        dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
           if(err) throw err;
           var driver = result[0].user; // nom du posteur de l'annonce
           var gsm = result[0].gsm;
@@ -154,14 +156,14 @@ MongoClient.connect(url, function(err, db){
           var ldepart = result[0].ldepart;
           var larrivee = result[0].larrivee;
           var places = result[0].places;
+          res.render('Page5.html', {ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername})
           // faire : la varible "varibale" qui varie ne fonction de si la personne à deja réserver ou plus de place ou encore réservé.
         })
-        dbo.collection("account").find({username : driver}).toArray(function(err, result){
+        /*dbo.collection("account").find({username : driver}).toArray(function(err, result){
           if (err) throw err;
           //var avatar = result[0].avatar;
-        })
-        res.render('Page5.html', {ddepart: DateDdepart, ldepart: VDepart, larrivee: VArrivee, gsm: gsm, placesr: nbrplaces, driver : user, sesUsername : sesUsername, avatar: avatar })
-      })
+        })*/
+          })
 })
 
 app.use(express.static("static"));
