@@ -19,9 +19,17 @@ display :block;
 font-size: 150%;
 
 }
-footer{
+.fo1{
   float: left;
-  margin-left: 400px;
+  margin-left: 300px;
+  margin-top: 50px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background: LightSteelBlue
+}
+.fo2{
+  float: right;
+  margin-right: 300px;
   margin-top: 50px;
   border: 1px solid black;
   border-radius: 10px;
