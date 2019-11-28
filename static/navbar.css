@@ -55,6 +55,11 @@ li a:hover{
 .pos {
 	float:right;
 }
+.mid{
+  float : center;
+  margin-left: 31%;
+  margin-top: 3px;
+}
 
 .pos a.active{
     border-bottom-left-radius: 5px;
@@ -64,7 +69,7 @@ li a:hover{
     float: left;
     margin-left: 3px;
     margin-top: 5px;
-    padding: 10px 10px; 
+    padding: 10px 10px;
     line-height: 17px;
     background-color: Silver;
     outline: none;
@@ -80,7 +85,7 @@ li a:hover{
 
 .btn{
     margin-top: 5px;
-    background-color: LightSlateGray; 
+    background-color: LightSlateGray;
     border: none;
     color: white;
     line-height: 17px;
