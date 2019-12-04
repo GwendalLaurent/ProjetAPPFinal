@@ -12,14 +12,14 @@ function usernameHtml(username){
 }
 
 function placeLeft(reserved, available){
-    return available - 2 + '/' + available; // TODO reserved.length when reserved will be a list 
+    return available - reserved + '/' + available; // TODO reserved.length when reserved will be a list 
 }
 
 function annoncesHtml(queryRes){
     let toRet = ""
     console.log(queryRes);
     for(var i=0;i<queryRes.length;i++){
-        toRet += "<tr onClick='document.location=\"/fifthpage?id="+ queryRes[i]._id +"\"'><td>" + queryRes[i].user + "</td><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved, queryRes[i].places) + "</td></tr>"
+        toRet += "<tr onClick='document.location=\"/fifthpage?id="+ queryRes[i]._id +"\"'><td>" + queryRes[i].user + "</td><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved.length, queryRes[i].places) + "</td></tr>"
     }
     return toRet;
 }
@@ -36,13 +36,10 @@ function annoncesprofilHtml(req, queryRes){
     return toRet;
 }
 
-exports.firstPage = function(req, res, alreadyChecked = false){
+exports.firstPage = function(req, res){
     sesUsername = req.session.username;
     let queryRes, user, connect;
     // console.log(sesUsername)
-    if(alreadyChecked){
-
-    }
     dbo.collection("account").find({username:sesUsername}).toArray(function(err, queryUsername){
         if(err) throw err;
         if(queryUsername.length != 0){
@@ -65,13 +62,10 @@ exports.firstPage = function(req, res, alreadyChecked = false){
     });
 }
 
-exports.fourthPage = function(req, res, alreadyChecked = false){
+exports.fourthPage = function(req, res){
     sesUsername = req.session.username;
     let queryRes, user, connect;
     // console.log(sesUsername)
-    if(alreadyChecked){
-
-    }
     dbo.collection("account").find({username:sesUsername}).toArray(function(err, queryUsername){
         if(err) throw err;
         if(queryUsername.length != 0){

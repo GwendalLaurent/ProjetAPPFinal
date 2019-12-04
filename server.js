@@ -15,14 +15,13 @@ function getDate(){
     var date =  today.toLocaleDateString('en-US', options);
     return date;
 }
-function getPlace(lst, id){
-  var bool = false;
-  for (i = 0; i < lst.length; i++){
-    if (id == list[i]){
-      bool = true;
+function alreadyReserved(reservedUser, id){
+  for (i = 0; i < reservedUser.length; i++){
+    if (id == reservedUser[i]){
+      return true;
     }
-    return bool;
   }
+  return false;
 }
 
 MongoClient.connect(url, function(err, db){
@@ -107,7 +106,8 @@ MongoClient.connect(url, function(err, db){
 		var Varrivee = req.query.Varrivee;
 		var DateDepart = req.query.DateDepart;
 		var nbrPlaces = req.query.nbrPlaces;
-		var sesUsername = req.session.username;
+        var sesUsername = req.session.username;
+        var requirements = (Array.isArray(req.query.requirements)) ? req.query.requirements : [req.query.requirements];
 		if (Vdepart == "" || Varrivee == "" || DateDepart == "" || nbrPlaces == ""){
 		  res.render('Page3.html', {username: sesUsername, error1 : "ERROR : Veuilliez remplir tous les champs demandés"});
 		}
@@ -115,7 +115,7 @@ MongoClient.connect(url, function(err, db){
 			dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
 				var GSM = result[0].Gsm;
 				console.log(result[0].Gsm);
-				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart, larrivee : Varrivee, reserved: [], places: nbrPlaces});
+				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart, larrivee : Varrivee, reserved: [], places: nbrPlaces, requirements: requirements});
 				console.log ("added new annonce.");
 				res.render('Page3.html', {username: sesUsername, error1 : "Informations bien enregistrées !"});
 			})
@@ -182,11 +182,11 @@ MongoClient.connect(url, function(err, db){
           var ldepart = result[0].ldepart;
           var larrivee = result[0].larrivee;
           var places = result[0].places;
+          var reserved = result[0].reserved;
           dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
             if(err) throw err;
-            var list = result[0].inscription;
-            if (!getPlace(list, req.query.id)){
-              if (places == "0"){
+            if (!alreadyReserved(reserved, req.query.id)){
+              if (places - reserved.length <= 0){
                 var inscription = "plus de place";
                 res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id});
               }else {
