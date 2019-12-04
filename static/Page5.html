@@ -33,12 +33,14 @@
       <li class="li1">Lieu de départ : {{ldepart}}</li>
       <li class="li1">Lieu d'arriver : {{larrivee}}</li>
       <li class="li1">GSM : {{gsm}}</li>
-      <li class="li1">Nombre de place(s) restante(s): {{placesr}}</li>
+      <li class="li1">Nombre de place(s) restante(s): {{places}}</li>
     </ol>
   <center><div>
       <img src="{{avatar}}" alt="Avatar">
       <h4>nom du conducteur : {{driver}}</h4>
-      <center><input class = "inscr" type="submit" name="insciption" value={{variable}}></center>
+      <form action= "submitReserv">
+      <center><button class = "btn" name ="id" value={{id}}>{{inscription}}</button></center>
+      </form>
   </div></center>
 </section>
 <footer>
