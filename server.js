@@ -132,18 +132,7 @@ MongoClient.connect(url, function(err, db){
         })
     })
 
-	app.get('/fourthpage', function(req, res) {
-        sesUsername = req.session.username;
-        dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
-            if(err) throw err;
-            if (result.length != 0){
-                res.render('Page4.html', {Date:getDate(), username:sesUsername, Disco: "Se déconnecter"});
-            }
-            else{
-                res.render('Page2.html', {tried:"Veuillez vous connecter"});
-            }
-        })
-    })
+	app.get('/fourthpage', showInfos.fourthPage)
 
     app.get('/fifthpage', function(req, res) {
         sesUsername = req.session.username;

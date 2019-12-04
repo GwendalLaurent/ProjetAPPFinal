@@ -1,3 +1,4 @@
+  
 <!doctype html>
 
 <html lang="fr">
@@ -18,7 +19,7 @@
 	  </form>
     <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
 	  <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
-	  <li class="pos"><a class="active" href="/fourthpage">{{username}}</a></li>
+	  {{{username}}}
 	</ul>
 </nav>
     <h4>Jour actuel: <time>{{Date}}</time></h4>
@@ -31,21 +32,8 @@
 			<th>Places</th>
 			<th></th>
 		</thead>
-		<tbody><!--Only for test-->
-			<tr>
-				<td>14-11-2019</td>
-				<td>Ottignies</td>
-				<td>Louvain-la-neuve</td>
-				<td>2/5</td>
-				<td><button class="change">Editer</button></td>
-			</tr>
-			<tr>
-				<td>14-11-2019</td>
-				<td>Ottignies</td>
-				<td>Louvain-la-neuve</td>
-				<td>2/5</td>
-				<td><button class="change">Editer</button></td>
-			</tr>
+		<tbody>
+			{{{annonces}}}
 		</tbody>
 	</table>
 <section>
