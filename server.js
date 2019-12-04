@@ -15,6 +15,15 @@ function getDate(){
     var date =  today.toLocaleDateString('en-US', options);
     return date;
 }
+function getPlace(lst, id){
+  var bool = false;
+  for (i = 0; i < lst.length; i++){
+    if (id == list[i]){
+      bool = true;
+    }
+    return bool;
+  }
+}
 
 MongoClient.connect(url, function(err, db){
     dbo = db.db("projetFinal");
@@ -113,9 +122,8 @@ MongoClient.connect(url, function(err, db){
 		}
 	})
 
-  app.get('/submitReserv', function(req, res){ //envoyer l'id
+  app.get('/submitReserv', function(req, res){
     if (err) throw err;
-    var reserv = req.query.inscription;
     var sesUsername = req.session.username;
     var id = new mongo.ObjectId(req.query.id); //id de l'annonce
     if (reserv = "plus de place"){
@@ -177,13 +185,7 @@ MongoClient.connect(url, function(err, db){
           dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
             if(err) throw err;
             var list = result[0].inscription;
-            var bool = true;
-            for (i = 0; i < list.length; i++){
-              if (id == list[i]){
-                bool = false;
-              }
-            }
-            if (bool){
+            if (!getPlace(list, req.query.id)){
               if (places == "0"){
                 var inscription = "plus de place";
                 res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id});
