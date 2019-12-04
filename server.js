@@ -55,7 +55,7 @@ MongoClient.connect(url, function(err, db){
                     res.render('Page2.html', {signError: "Veuillez remplir tous les champs"});
                 }
                 else{
-                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email};
+                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email, inscription : []}; // j'ai ajouté insciption
                     dbo.collection("account").insertOne(userAcc, function(err, res) {
                         if (err) throw err;
                         console.log("added new user");
@@ -113,6 +113,35 @@ MongoClient.connect(url, function(err, db){
 		}
 	})
 
+  app.get('/submitReserv', function(req, res){ //envoyer l'id
+    if (err) throw err;
+    var reserv = req.query.inscription;
+    var sesUsername = req.session.username;
+    var id = new mongo.ObjectId(req.query.id); //id de l'annonce
+    if (reserv = "plus de place"){
+      res.redirect('/fifthpage');
+    }
+    if (resev = "réserver"){
+      dbo.collection("account").update({username : sesUsername}, {$addToSet:{insciption : id}});
+      dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
+        if (err) throw err;
+        var place = parseInt(result[0].places);
+        place -= 1;
+        dbo.collection("annonces").update({_id :id}, {places : place.toString()});
+      res.redirect('/fifthpage');
+      })
+    }
+    if (reserv = "se résilier"){
+      dbo.collection("account").update({username : sesUsername}, {$in:{insciption : id}});
+      dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
+        if (err) throw err;
+        var place = parseInt(result[0].places);
+        place += 1;
+        dbo.collection("annonces").update({_id :id}, {places : place.toString()});
+      res.redirect('/fifthpage');
+      })
+   }
+ })
 	app.get('/firstpage', showInfos.firstPage);
 
     app.get('/secpage', function(req, res) {
@@ -135,7 +164,7 @@ MongoClient.connect(url, function(err, db){
 	app.get('/fourthpage', showInfos.fourthPage)
 
     app.get('/fifthpage', function(req, res) {
-        sesUsername = req.session.username;
+        var sesUsername = req.session.username;
         var id = new mongo.ObjectId(req.query.id);
         dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
           if(err) throw err;
@@ -145,8 +174,28 @@ MongoClient.connect(url, function(err, db){
           var ldepart = result[0].ldepart;
           var larrivee = result[0].larrivee;
           var places = result[0].places;
-          res.render('Page5.html', {ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername})
-          // faire : la varible "varibale" qui varie ne fonction de si la personne à deja réserver ou plus de place ou encore réservé.
+          dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
+            if(err) throw err;
+            var list = result[0].inscription;
+            var bool = true;
+            for (i = 0; i < list.length; i++){
+              if (id == list[i]){
+                bool = false;
+              }
+            }
+            if (bool){
+              if (places == "0"){
+                var inscription = "plus de place";
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id});
+              }else {
+                var inscription = "réserver";
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id});
+               }
+            }else{
+              var inscription = "se résilier";
+              res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id});
+             }
+          })
         })
         /*dbo.collection("account").find({username : driver}).toArray(function(err, result){
           if (err) throw err;
