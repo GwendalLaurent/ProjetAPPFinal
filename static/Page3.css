@@ -37,7 +37,7 @@ tbody{
 	text-align:center;
 }
 
-input[type="text"], input[type="datetime-local"], input[type="number"]{
+input[type="text"], input[type="datetime-local"], input[type="number"], select{
 	background-color: Silver;
 	color: white;
 	border-radius: 15px;

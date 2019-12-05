@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -49,14 +50,16 @@
             <td><input type="number" min="1" name="nbrPlaces"></td>
           </tr>
           <tr>
-            <td>Exigences</td>
+            <td>Exigences <br />(CTRL+click <br/>pour en selectionner plusieurs)</td>
             <td>
-              <input type="checkbox" name="requirements" value="requirements1" id="requirements1">
-              <label for="requirements1">Exigence 1</label>
-              <input type="checkbox" name="requirements" value="requirements2" id="requirements2">
-              <label for="requirements2">Exigence 3</label>
-              <input type="checkbox" name="requirements" value="requirements3" id="requirements3">
-              <label for="requirements3">Exigence 3</label>
+			<select multiple name="requirements" class=form-control>
+			  <option type="checkbox" value="Non fumeur">Non fumeur</option>
+              <option type="checkbox" value="Pas d'enfants">Pas d'enfants</option>
+              <option type="checkbox" value="Pas de nourriture">Pas de nourriture</option>
+			  <option type="checkbox" value="Silence exigé">Silence exigé</option>
+			  <option type="checkbox" value="Pas de détours">Pas de détours</option>
+			  <option type="checkbox" value="Pas de bagage">Pas de bagage</option>
+			</select>
             </td>
           </tr>
           <tr class="alignement">
