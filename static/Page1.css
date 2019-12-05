@@ -82,3 +82,7 @@ section .btn:hover{
 	transition: background-color 0.5s;
 	transition: border 0.5s;
 }
+
+.noResult{
+	text-align: center;
+}
