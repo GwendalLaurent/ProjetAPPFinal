@@ -29,15 +29,15 @@
     </header>
     <ol>
       <h1><u> Description de l'annonce : </u></h1>
-      <li class="li1">Date de départ : {{ddepart}}</li>
-      <li class="li1">Lieu de départ : {{ldepart}}</li>
-      <li class="li1">Lieu d'arriver : {{larrivee}}</li>
-      <li class="li1">GSM : {{gsm}}</li>
-      <li class="li1">Nombre de place(s) restante(s): {{places}}</li>
+      <li class="li1"><u>Date de départ :</u> {{ddepart}}</li>
+      <li class="li1"><u>Lieu de départ :</u><a href="https://www.google.be/maps" target="_blank">{{ldepart}}</a></li>
+      <li class="li1"><u>Lieu d'arriver :</u> {{larrivee}}</li>
+      <li class="li1"><u>GSM :</u> {{gsm}}</li>
+      <li class="li1"><u>Nombre de place(s) restante(s):</u> {{places}}</li>
     </ol>
   <center><div>
       <img src="{{avatar}}" alt="Avatar">
-      <h4>nom du conducteur : {{driver}}</h4>
+      <h4><u>nom du conducteur :</u> {{driver}}</h4>
       <form action= "submitReserv">
       <center><button class = "btn" name ="id" value={{id}}>{{inscription}}</button></center>
       </form>
@@ -45,13 +45,13 @@
 </section>
 <footer>
   <div class="fo1">
-    <center><h3><u>Besoin d'en savoir plus sur le lieu du RDV ?</u></h3></center>
-    <h4>copier coler cette adresse : {{ldepart}} sur ce site :<a href="https://www.google.be/maps" target="_blank">googleMaps</a></h4>
+    <center><h3><u>Besoin d'aide ?</u></h3></center>
+    <h3>N'hesitez pas à nous contacter à cette adresse : <a href= "mailto:cocovoit@hotmail.com">cocovoit@hotmail.com.com</a></h3>
   </div>
   <div class="fo2">
-    <h2> exigence(s) du conducteur </h2>
+    <h2><u>Exigence(s) du conducteur</u></h2>
     <h3>{{exigence}}</h3> <!--variable pas encore créée-->
-  </div>
-</footer>
+  </section>
+</div>
 </form>
 </body>
