@@ -9,23 +9,29 @@ float : right;
 padding: 20px;
 width:30%;
 background-color: #f1f1f1;
-margin-right: 16%;
-margin-top: 3%;
+height: 200px;
+margin-right: 300px;
+margin-top: 50px;
 border-radius: 25px;
 }
+.li1{
+float :none;
+display :block;
+font-size: 150%;
 
+}
 .fo1{
   float: left;
-  margin-left: 10%;
-  margin-top: 2%;
+  margin-left: 300px;
+  margin-top: 50px;
   border: 1px solid black;
   border-radius: 10px;
   background: LightSteelBlue
 }
 .fo2{
   float: right;
-  margin-right : 16%;
-  margin-top: 2%;
+  margin-right: 300px;
+  margin-top: 50px;
   border: 1px solid black;
   border-radius: 10px;
   background: LightSteelBlue
@@ -36,10 +42,10 @@ width: 30%;
 background: LightSlateGray;
 border: 1px solid black;
 border-radius: 25px;
-margin-left: 16%;
-margin-top: 3%;
+margin-left: 300px;
+margin-top: 50px;
 }
-button{
+.inscr{
 width:200px;
 height: 50px;
 border-radius: 10px;
@@ -48,7 +54,7 @@ text-align : center;
 background-color: #4CAF50;
 color: white;
 }
-button:hover{
+.inscr:hover{
   background-color: #005f20;
   border: 1px solid #004d1a;
   transition: background-color 0.3s;
