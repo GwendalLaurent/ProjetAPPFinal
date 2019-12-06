@@ -126,30 +126,40 @@ MongoClient.connect(url, function(err, db){
 		if (err) throw err;
 		var sesUsername = req.session.username;
 		var id = new mongo.ObjectId(req.query.id); //id de l'annonce
-		if (reserv = "plus de place"){
-		  res.redirect('/fifthpage');
-		}
-		if (resev = "réserver"){
-		  dbo.collection("account").update({username : sesUsername}, {$addToSet:{insciption : id}});
-		  dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
-			if (err) throw err;
-			var place = parseInt(result[0].places);
-			place -= 1;
-			dbo.collection("annonces").update({_id :id}, {places : place.toString()});
-		  res.redirect('/fifthpage');
-		  })
-		}
-		if (reserv = "se résilier"){
-		  dbo.collection("account").update({username : sesUsername}, {$in:{insciption : id}});
-		  dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
-			if (err) throw err;
-			var place = parseInt(result[0].places);
-			place += 1;
-			dbo.collection("annonces").update({_id :id}, {places : place.toString()});
-		  res.redirect('/fifthpage');
-		  })
-		}
-	})
+    dbo.collection("annonces").find({_id : id}).toArray(function(err, result1){
+      var driver = result1[0].user; // nom du posteur de l'annonce
+      var gsm = result1[0].gsm;
+      var ddepart = result1[0].ddepart;
+      var ldepart = result1[0].ldepart;
+      var larrivee = result1[0].larrivee;
+      var places = result1[0].places;
+      var reserved = result1[0].reserved;
+      var requirements = result1[0].requirements;
+      if (err) throw err;
+      if ((parseInt(result1[0].places) - result1[0].reserved.length) == 0){
+        dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
+          if (alreadyReserved(result[0].insciption,req.query.id)){
+            dbo.collection("account").update({username : sesUsername}, {$pull:{inscription : id}});
+            res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : "réserver", id : req.query.id, exigence: requirements.toString()});
+          }
+          res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : "plus de place", id : req.query.id, exigence: requirements.toString()});
+        })
+      }
+      else{
+        dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
+          if (alreadyReserved(result[0].insciption,req.query.id)){
+            dbo.collection("account").update({username : sesUsername}, {$in:{insciption : id}});
+            res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : "réserver", id : req.query.id, exigence: requirements.toString()});
+          }
+          else{
+            dbo.collection("account").update({username : sesUsername}, {$addToSet:{insciption : id}});
+            res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : "se résilier", id : req.query.id, exigence: requirements.toString()});
+          }
+        })
+      }
+    })
+  })
+
 	app.get('/firstpage', showInfos.firstPage);
 
     app.get('/secpage', function(req, res) {
@@ -183,20 +193,22 @@ MongoClient.connect(url, function(err, db){
           var larrivee = result[0].larrivee;
           var places = result[0].places;
           var reserved = result[0].reserved;
-		  var requirements = result[0].requirements;
+		      var requirements = result[0].requirements;
           dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
             if(err) throw err;
             if (!alreadyReserved(reserved, req.query.id)){
-              if (places - reserved.length <= 0){
+              console.log (reserved);
+              if (parseInt(places) - reserved.length <= 0){
+                console.log("ici1");
                 var inscription = "plus de place";
-                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
               }else {
                 var inscription = "réserver";
-                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
                }
             }else{
               var inscription = "se résilier";
-              res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: places, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+              res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: parseInt(result1[0].places) - result1[0].reserved.length, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
              }
           })
         })
