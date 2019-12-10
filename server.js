@@ -24,6 +24,10 @@ function alreadyReserved(reservedUser, id){
   return false;
 }
 
+function usernameHtml(username){
+    return '<li class="pos"><a class="active" href="/fourthpage">'+ username + '</a></li>';
+}
+
 MongoClient.connect(url, function(err, db){
     dbo = db.db("projetFinal");
     if(err) throw err;
@@ -166,7 +170,8 @@ MongoClient.connect(url, function(err, db){
         dbo.collection("account").find({username:sesUsername}).toArray(function(err, result){
             if(err) throw err;
             if (result.length != 0){
-                res.render('Page3.html', {username:sesUsername, Disco:"Se déconnecter"});
+				user = usernameHtml(sesUsername)
+                res.render('Page3.html', {username:user, Disco:"Se déconnecter"});
             }
             else{
                 res.render('Page2.html', {tried:"Veuillez vous connecter"});
@@ -188,23 +193,28 @@ MongoClient.connect(url, function(err, db){
           var larrivee = result[0].larrivee;
           var places = result[0].places;
           var reserved = result[0].reserved;
-		      var requirements = result[0].requirements;
+		  var requirements = result[0].requirements;
           var nPlaces = (parseInt(result[0].places) - result[0].reserved.length);
+		  var user = usernameHtml(sesUsername);
           dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
             if(err) throw err;
+			if (sesUsername == undefined) {
+				res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, inscription : inscription, id : req.query.id, exigence: requirements.toString(), Disco:"Se Connecter"});
+			}
             if (!alreadyReserved(reserved, req.query.id)){
               console.log (reserved);
               if (parseInt(places) - reserved.length <= 0){
                 console.log("ici1");
                 var inscription = "plus de place";
-                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription, id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
               }else {
                 var inscription = "réserver";
-                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+				console.log(user);
+                res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription, id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
                }
             }else{
               var inscription = "se résilier";
-              res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, sesUsername : sesUsername, inscription : inscription, id : req.query.id, exigence: requirements.toString()});
+              res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee, gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription, id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
              }
           })
         })
@@ -212,7 +222,7 @@ MongoClient.connect(url, function(err, db){
           if (err) throw err;
           //var avatar = result[0].avatar;
         })*/
-          })
+    })
 })
 
 app.use(express.static("static"));

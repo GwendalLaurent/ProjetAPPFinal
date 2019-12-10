@@ -1,4 +1,3 @@
-  
 function getDate(){
     var options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var today = new Date();
@@ -61,10 +60,10 @@ exports.firstPage = function(req, res){
         if(queryUsername.length != 0){
             // console.log(queryUsername);
             user = usernameHtml(sesUsername)
-            connect = "Se Déconnecter";
+            connect = "Se déconnecter";
         }else{
             user = "";
-            connect = "Se Connecter";
+            connect = "Se connecter";
         }
         var query = {};
         if(req.query.search != null){
@@ -91,7 +90,7 @@ exports.fourthPage = function(req, res){
         if(queryUsername.length != 0){
             // console.log(queryUsername);
             user = usernameHtml(sesUsername)
-            connect = "Se Déconnecter";
+            connect = "Se déconnecter";
         }else{
             res.render('Page2.html', {tried:"Veuillez vous connecter"})
         }

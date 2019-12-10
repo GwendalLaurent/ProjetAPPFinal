@@ -8,19 +8,19 @@
     <link rel="stylesheet" href="navbar.css" type="text/css">
   </head>
 <body>
-  <nav class="navbar navbar-default" role="navigation">
-      <ul>
-        <li><a class="active" href="\">Annonces</a></li>
-        <form action =firstpage>
-          <li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
-          <li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
-        <input class="btn" type="submit" value="Search"></input></li>
-        </form>
-        <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
-        <li class="pos"><a class="active" href="/disconnect">Se déconnecter</a></li>
-        <li class="pos"><a class="active" href="\secpage">{{username}}</a></li>
-      </ul>
-  </nav>
+	<nav class="navbar navbar-default" role="navigation">
+		<ul>
+		  <li><a class="active" href="/firstpage">Annonces</a></li>
+		  <form action =firstpage>
+		  <li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
+		  <li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
+		  <input class="btn" type="submit" value="Search"></input></li>
+		  </form>
+		  <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
+		  <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
+		  {{{username}}}
+		</ul>
+	</nav>
 <form action = "fifthpage"
 <h4>Jour actuel: <time>{{Date}}</time></h4>
       <center><h1><u> Informations sur l'annonce :</u></h1></center>
