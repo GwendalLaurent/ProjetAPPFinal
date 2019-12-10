@@ -23,10 +23,9 @@
   </nav>
 <form action = "fifthpage"
 <h4>Jour actuel: <time>{{Date}}</time></h4>
-<section class="sec1">
-    <header>
       <center><h1><u> Informations sur l'annonce :</u></h1></center>
-    </header>
+<center><table width=60%>
+  <tr><td width=50%>
     <ol>
       <h1><u> Description de l'annonce : </u></h1>
       <li class="li1"><u>Date de départ :</u> {{ddepart}}</li>
@@ -35,21 +34,28 @@
       <li class="li1"><u>GSM :</u> {{gsm}}</li>
       <li class="li1"><u>Nombre de place(s) restante(s):</u> {{places}}</li>
     </ol>
+  </td>
+  <td>
   <center><div>
       <img src="{{avatar}}" alt="Avatar">
       <h4><u>nom du conducteur :</u> {{driver}}</h4>
       <center><button class = "btn" name ="id" value={{id}} formaction="submitReserv">{{inscription}}</button></center>
   </div></center>
-</section>
-<footer>
-  <div class="fo1">
+</td></tr>
+<tr>
+  <td>
+    <div class="fo1">
     <center><h3><u>Besoin d'aide ?</u></h3></center>
     <h3>N'hesitez pas à nous contacter à cet : <a href= "mailto:cocovoit@hotmail.com">email</a></h3>
   </div>
-  <div class="fo2">
+  </td>
+  <td>
+    <div class="fo2">
     <h2><u>Exigence(s) du conducteur</u></h2>
     <h3>{{exigence}}</h3> <!--variable pas encore créée-->
-  </section>
-</div>
+    </div>
+  </td>
+</tr>
+</table></center>
 </form>
 </body>
