@@ -1,72 +1,72 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <title>Ajout d'une annonce</title>
-    <link rel="stylesheet" href="Page3.css" type="text/css">
-    <link rel="stylesheet" href="navbar.css" type="text/css">
-  </head>
+	<head>
+		<meta charset="utf-8">
+		<title>Ajout d'une annonce</title>
+		<link rel="stylesheet" href="Page3.css" type="text/css">
+		<link rel="stylesheet" href="navbar.css" type="text/css">
+	</head>
     <body>
-<nav class="navbar navbar-default" role="navigation">
-    <ul>
-      <li><a class="active" href="/firstpage">Annonces</a></li>
-      <form action =firstpage>
-      <li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
-      <li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
-      <input class="btn" type="submit" value="Search"></input></li>
-      </form>
-      <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
-      <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
-      {{{username}}}
-    </ul>
-</nav>
-      <section>
-      <table class="table1">
-        <form action = "submit">
-        <thead>
-          <tr>
-            <th>
-              Poster votre annonce
-            </th>
-          </tr>
-        </thead>
-          <tr class="alignement">
-            <td colspan="2">{{error1}}</td>
-          </tr>
-          <tr>
-            <td>Ville de départ</td>
-            <td><input type="text" name="Vdepart"></td>
-          </tr>
-          <tr>
-            <td>Ville d'arrivée</td>
-            <td><input type="text" name="Varrivee"></td>
-          </tr>
-          <tr>
-            <td>Date et heure de départ</td>
-            <td><input type="datetime-local" min="{{date}}" name="DateDepart"></td>
-          </tr>
-          <tr>
-            <td>Place disponible <br /> (avec vous dans la voiture)</td>
-            <td><input type="number" min="1" name="nbrPlaces"></td>
-          </tr>
-          <tr>
-            <td>Exigences <br />(CTRL+click <br/>pour en selectionner plusieurs)</td>
-            <td>
-			<select multiple name="requirements" class=form-control>
-			  <option type="checkbox" value="Non fumeur">Non fumeur</option>
-              <option type="checkbox" value="Pas d'enfants">Pas d'enfants</option>
-              <option type="checkbox" value="Pas de nourriture">Pas de nourriture</option>
-			  <option type="checkbox" value="Silence exigé">Silence exigé</option>
-			  <option type="checkbox" value="Pas de détours">Pas de détours</option>
-			  <option type="checkbox" value="Pas de bagage">Pas de bagage</option>
-			</select>
-            </td>
-          </tr>
-          <tr class="alignement">
-            <td colspan="2"><input type="submit" value="Poster l'annonce"></td>
-          </tr>
-        </table>
-      </form>
-      </section>
+		<nav class="navbar navbar-default" role="navigation">
+			<ul>
+				<li><a class="active" href="/firstpage">Annonces</a></li>
+				<form action =firstpage>
+					<li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
+					<li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
+					<input class="btn" type="submit" value="Search"></input></li>
+				</form>
+				<li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
+				<li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
+				{{{username}}}
+			</ul>
+		</nav>
+		<section>
+			<table class="table1">
+			<form action = "submit">
+				<thead>
+					<tr>
+						<th>
+							Poster votre annonce
+						</th>
+					</tr>
+				</thead>
+				<tr class="alignement">
+					<td colspan="2">{{error1}}</td>
+				</tr>
+				<tr>
+					<td>Ville de départ</td>
+					<td><input type="text" name="Vdepart"></td>
+				</tr>
+				<tr>
+					<td>Ville d'arrivée</td>
+					<td><input type="text" name="Varrivee"></td>
+				</tr>
+				<tr>
+					<td>Date et heure de départ</td>
+					<td><input type="datetime-local" min="{{date}}" name="DateDepart"></td>
+				</tr>
+				<tr>
+					<td>Place disponible <br /> (avec vous dans la voiture)</td>
+					<td><input type="number" min="1" name="nbrPlaces"></td>
+				</tr>
+				<tr>
+					<td>Exigences <br />(CTRL+click <br/>pour en selectionner plusieurs)</td>
+					<td>
+						<select multiple name="requirements" class=form-control>
+							<option type="checkbox" value="Non fumeur">Non fumeur</option>
+							<option type="checkbox" value="Pas d'enfants">Pas d'enfants</option>
+							<option type="checkbox" value="Pas de nourriture">Pas de nourriture</option>
+							<option type="checkbox" value="Silence exigé">Silence exigé</option>
+							<option type="checkbox" value="Pas de détours">Pas de détours</option>
+							<option type="checkbox" value="Pas de bagage">Pas de bagage</option>
+						</select>
+					</td>
+				</tr>
+				<tr class="alignement">
+					<td colspan="2"><input type="submit" value="Poster l'annonce"></td>
+				</tr>
+			</table>
+			</form>
+		</section>
 	</body>
 </html>

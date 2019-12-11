@@ -1,61 +1,64 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>info sur l'annonce</title>
-    <link rel="stylesheet" href="Page5.css" type="text/css">
-    <link rel="stylesheet" href="navbar.css" type="text/css">
-  </head>
-<body>
-	<nav class="navbar navbar-default" role="navigation">
-		<ul>
-		  <li><a class="active" href="/firstpage">Annonces</a></li>
-		  <form action =firstpage>
-		  <li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
-		  <li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
-		  <input class="btn" type="submit" value="Search"></input></li>
-		  </form>
-		  <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
-		  <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
-		  {{{username}}}
-		</ul>
-	</nav>
-<form action = "fifthpage"
-<h4>Jour actuel: <time>{{Date}}</time></h4>
-      <center><h1><u> Informations sur l'annonce :</u></h1></center>
-<center><table width=60%>
-  <tr><td width=50%>
-    <ol>
-      <h1><u> Description de l'annonce : </u></h1>
-      <li class="li1"><u>Date de départ :</u> {{ddepart}}</li>
-      <li class="li1"><u>Lieu de départ :</u><a href="https://www.google.be/maps/place/{{ldepart}}" target="_blank">{{ldepart}}</a></li>
-      <li class="li1"><u>Lieu d'arriver :</u> {{larrivee}}</li>
-      <li class="li1"><u>GSM :</u> {{gsm}}</li>
-      <li class="li1"><u>Nombre de place(s) restante(s):</u> {{places}}</li>
-    </ol>
-  </td>
-  <td>
-  <center><div>
-      <img src="{{avatar}}" alt="Avatar">
-      <h4><u>nom du conducteur :</u> {{driver}}</h4>
-      <center><button class = "btn" name ="id" value={{id}} formaction="submitReserv">{{inscription}}</button></center>
-  </div></center>
-</td></tr>
-<tr>
-  <td>
-    <div class="fo1">
-    <center><h3><u>Besoin d'aide ?</u></h3></center>
-    <h3>N'hesitez pas à nous contacter à cet : <a href= "mailto:cocovoit@hotmail.com">email</a></h3>
-  </div>
-  </td>
-  <td>
-    <div class="fo2">
-    <h2><u>Exigence(s) du conducteur</u></h2>
-    <h3>{{exigence}}</h3> <!--variable pas encore créée-->
-    </div>
-  </td>
-</tr>
-</table></center>
-</form>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Informations sur l'annonce</title>
+		<link rel="stylesheet" href="Page5.css" type="text/css">
+		<link rel="stylesheet" href="navbar.css" type="text/css">
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<ul>
+				<li><a class="active" href="/firstpage">Annonces</a></li>
+				<form action =firstpage>
+				<li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
+				<li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
+				<input class="btn" type="submit" value="Search"></input></li>
+				</form>
+				<li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
+				<li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
+				{{{username}}}
+			</ul>
+		</nav>
+		<form action = "fifthpage"
+			<h4>Jour actuel: <time>{{Date}}</time></h4>
+			<center><h1><u> Informations sur l'annonce :</u></h1></center>
+			<center><table width=60%>
+				<tr>
+					<td width=50%>
+					<ol>
+						  <h1><u> Description de l'annonce : </u></h1>
+						  <li class="li1"><u>Date de départ :</u> {{ddepart}}</li>
+						  <li class="li1"><u>Lieu de départ :</u><a href="https://www.google.be/maps/place/{{ldepart}}" target="_blank">{{ldepart}}</a></li>
+						  <li class="li1"><u>Lieu d'arriver :</u> {{larrivee}}</li>
+						  <li class="li1"><u>GSM :</u> {{gsm}}</li>
+						  <li class="li1"><u>Nombre de place(s) restante(s):</u> {{places}}</li>
+						</ol>
+					</td>
+					<td>
+						<center><div>
+							<img src="{{avatar}}" alt="Avatar">
+							<h4><u>nom du conducteur :</u> {{driver}}</h4>
+							<center><button class = "btn" name ="id" value={{id}} formaction="submitReserv">{{inscription}}</button></center>
+						</div></center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div class="fo1">
+							<center><h3><u>Besoin d'aide ?</u></h3></center>
+							<h3>N'hesitez pas à nous contacter à cet : <a href= "mailto:cocovoit@hotmail.com">email</a></h3>
+						</div>
+					</td>
+					<td>
+						<div class="fo2">
+							<h2><u>Exigence(s) du conducteur</u></h2>
+							<h3>{{exigence}}</h3> <!--variable pas encore créée-->
+						</div>
+					</td>
+				</tr>
+			</table></center>
+		</form>
+	</body>
+</html>

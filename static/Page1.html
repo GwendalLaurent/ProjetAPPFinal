@@ -2,44 +2,44 @@
 <!doctype html>
 
 <html lang="fr">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Incident</title>
-    <link rel="stylesheet" href="Page1.css" type="text/css">
-    <link rel="stylesheet" href="navbar.css" type="text/css">
-  </head>
-<body>
-<nav class="navbar navbar-default" role="navigation">
-    <ul>
-      <li><a class="active" href="/firstpage">Annonces</a></li>
-      <form action =firstpage>
-      <li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
-      <li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
-      <input class="btn" type="submit" value="Search"></input></li>
-      </form>
-      <li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
-      <li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
-      {{{username}}}
-    </ul>
-</nav>
-    <h4>Jour actuel: <time>{{Date}}</time></h4>
-	<table class="annonces">
-    <thead>
-        <th>Conducteur</th>
-        <th>Date</th>
-        <th>Depart</th>
-        <th>Arrivée</th>
-        <th>Places</th>
-    </thead>
-    <tbody>
-        {{{annonces}}}
-    </tbody>
-  </table>
-  <section>
-	<form action="/thirdpage">
-    <button class="btn">Ajouter une annonce</button>
-	</form>
-  <section>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Annonces</title>
+		<link rel="stylesheet" href="Page1.css" type="text/css">
+		<link rel="stylesheet" href="navbar.css" type="text/css">
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+			<ul>
+				<li><a class="active" href="/firstpage">Annonces</a></li>
+				<form action =firstpage>
+				<li><input class="search_bar" name="search" type="search" placeholder="Lieu de départ" aria-label="Search" id="depart">
+				<li><input class="search_bar" name="search" type="search" placeholder="Lieu d'arrivée" aria-label="Search" id="arrivee">
+				<input class="btn" type="submit" value="Search"></input></li>
+				</form>
+				<li class="mid"><img src="logo.png" alt="logo" width="70" height="40"></li>
+				<li class="pos"><a class="active" href="/disconnect">{{Disco}}</a></li>
+				{{{username}}}
+			</ul>
+		</nav>
+		<h4>Jour actuel: <time>{{Date}}</time></h4>
+		<table class="annonces">
+			<thead>
+				<th>Conducteur</th>
+				<th>Date</th>
+				<th>Depart</th>
+				<th>Arrivée</th>
+				<th>Places</th>
+			</thead>
+			<tbody>
+				{{{annonces}}}
+			</tbody>
+		</table>
+		<section>
+			<form action="/thirdpage">
+				<button class="btn">Ajouter une annonce</button>
+			</form>
+		<section>
+	</body>
 </html>
