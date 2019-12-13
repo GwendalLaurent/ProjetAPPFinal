@@ -68,7 +68,7 @@ MongoClient.connect(url, function(err, db){
                     res.render('Page2.html', {signError: "Veuillez remplir tous les champs"});
                 }
                 else{
-                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email, inscription : [], avatar = ""};
+                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email, inscription : [], avatar : ""};
 					// j'ai ajouté inscription
                     dbo.collection("account").insertOne(userAcc, function(err, res) {
                         if (err) throw err;
