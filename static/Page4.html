@@ -38,7 +38,7 @@
 		</table>
 		<section>
 			<table class="update" id="update">
-				<form action=sign_in>
+				<form action="modif">
 					<thead>
 						<th colspan=2><h3>Changer mes informations</h3></th>
 					</thead>
@@ -53,16 +53,12 @@
 							<td><input type="password" name="password" class="txt" placeholder="Mot de passe"></td>
 						</tr>
 						<tr>
-							<td><h4>Nom complet</h4></td>
-							<td><input type="text" name="full_name" class="txt" placeholder="Nom complet"></td>
-						</tr>
-						<tr>
 							<td><h4>Adresse e-mail</h4></td>
 							<td><input type="text" name="email" class="txt" placeholder="Email"></td>
 						</tr>
 						<tr>
 							<td><h4>Nouvel avatar</h4></td>
-							<td><input type="file" name="avatar" class="txt" placeholder="Avatar"></td> <!--quelle class pour une input type = "file"--->
+							<td><input type="file" name="avatar" class="filename" placeholder="Avatar"></td> <!--quelle class pour une input type = "file"--->
 						</tr>
 						<tr>
 							<td colspan="2" class="button"><input type="submit" name="new_account" value="s'enregister"></td>
