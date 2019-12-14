@@ -175,8 +175,8 @@ MongoClient.connect(url, function(err, db){
 			dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
 				if (sesUsername == undefined) {
 					res.render('Page2.html');
-					}
-				if (sesUsername == driver){
+				}
+				else if (sesUsername == driver){
 					supAnnonces(result1[0].reserved, id);
 					dbo.collection("annonces").remove({_id : id});
 					res.redirect('/firstpage');
