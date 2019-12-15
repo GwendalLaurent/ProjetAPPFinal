@@ -52,7 +52,7 @@
 		</table>
 		<section>
 			<table class="update" id="update">
-				<form action="modif">
+				<form action="modif" method="post" class="was-validated fileupload" enctype="multipart/form-data">
 					<thead>
 						<th colspan=2><h3>Changer mes informations</h3></th>
 					</thead>
@@ -60,22 +60,22 @@
 						<tr><td class="connexion" colspan=2>{{signError}}</td></tr>
 						<tr>
 							<td><h4>Nom d'utilisateur</h4></td>
-							<td><input type="text" name="username" class="txt" placeholder="Nom d'utilisateur"></td>
+							<td><input type="text" name="username" class="input" placeholder="Nom d'utilisateur"></td>
 						</tr>
 						<tr>
 							<td><h4>Mot de passe</h4></td>
-							<td><input type="password" name="password" class="txt" placeholder="Mot de passe"></td>
+							<td><input type="password" name="password" class="input" placeholder="Mot de passe"></td>
 						</tr>
 						<tr>
 							<td><h4>Adresse e-mail</h4></td>
-							<td><input type="text" name="email" class="txt" placeholder="Email"></td>
+							<td><input type="text" name="email" class="input" placeholder="Email"></td>
 						</tr>
 						<tr>
 							<td><h4>Nouvel avatar</h4></td>
-							<td><input type="file" name="avatar" class="filename" placeholder="Avatar"></td> <!--quelle class pour une input type = "file"--->
+							<td><input type="file" name="avatar" class="file-input" placeholder="Avatar", accept="image/*"></td>
 						</tr>
 						<tr>
-							<td colspan="2" class="button"><input type="submit" name="new_account" value="s'enregister"></td>
+							<td><button type="submit" class="button" name="new_account">enregister</button></td>
 						</tr>
 					</tbody>
 				</form>
