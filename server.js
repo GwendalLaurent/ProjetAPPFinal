@@ -1,4 +1,5 @@
 var express = require('express');
+var upload = require('express-fileupload');
 var consolidate = require('consolidate');
 var session = require('express-session');
 var app = express ()
@@ -40,7 +41,7 @@ function supAnnonces(lst, id){
 			dbo.collection("account").update({username : lst[i]}, {$pull:{inscription : id}});
 	}
 }
-
+app.use(upload());
 MongoClient.connect(url, function(err, db){
     dbo = db.db("projetFinal");
     if(err) throw err;
@@ -80,7 +81,7 @@ MongoClient.connect(url, function(err, db){
                     res.render('Page2.html', {signError: "Veuillez remplir tous les champs"});
                 }
                 else{
-                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email, inscription : [], avatar : ""};
+                    var userAcc = {username: reqUsername, password: reqPassword, Gsm: req.query.Gsm, email: req.query.email, inscription : [], avatar : "anonyme.png"};
 					// j'ai ajouté inscription
                     dbo.collection("account").insertOne(userAcc, function(err, res) {
                         if (err) throw err;
@@ -124,26 +125,32 @@ MongoClient.connect(url, function(err, db){
         res.redirect('/secpage');
     })
 
-	app.get('/modif', function(req, res){
+	app.post('/modif', function(req, res, next){
 		var user = req.session.username;
-		var prenom = req.query.username;
-		var mdp = req.query.password;
-		var email = req.query.email;
-		var avatar = req.query.avatar;
+		var prenom = req.body.username;
+		var mdp = req.body.password;
+		var email = req.body.email;
+		var avatar = req.files.avatar;
+		var name = avatar.name;
+		var type = avatar.mimetype.split('/')[1];
 		if (user != ""){
-			db.collection("account").update({username: user}, {username: prenom})
+			dbo.collection("account").update({username: user}, {$set :{username: prenom}});
 		}
 		if (mdp != ""){
-			db.collection("account").update({username: user}, {password : mdp})
+			dbo.collection("account").update({username: user}, {$set :{password : mdp}});
 		}
 		if (email != ""){
-			db.collection("account").update({username: user}, {email: email})
+			dbo.collection("account").update({username: user}, {$set : {email: email}});
 		}
-		if (avatar != ""){
-			db.collection("account").update({username: user}, {avatar: avatar})
+		if (req.files){
+			dbo.collection("account").find({username: user}).toArray(function(err, result){
+				console.log(result[0])
+			dbo.collection("account").update({username: user}, {$set:{avatar: result[0]._id + "." + type}});
+			avatar.mv(__dirname + '/static/avatar/' + result[0]._id + "." + type);
+			})
 		}
 		if (user != ""){
-			db.collection("account").update({username: user}, {username: prenom})
+			dbo.collection("account").update({username: user}, {$set : {username: prenom}});
 		}
 	})
 	app.get('/submit', function(req, res){
@@ -247,11 +254,14 @@ MongoClient.connect(url, function(err, db){
 			var user = usernameHtml(sesUsername);
 			var inscription;
 				if(err) throw err;
+				dbo.collection("account").find({username :driver}).toArray(function(err, result1){
+				var id = result1[0].avatar;
+				var avatar = "avatar/" + id;
 				if (sesUsername == undefined) {
 					inscription = "Connectez vous pour reserver"
 					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
 					gsm: gsm, places: nPlaces, driver : driver, inscription : inscription,
-					id : req.query.id, exigence: requirements.toString(), Disco:"Se Connecter"});
+					id : req.query.id, exigence: requirements.toString(), Disco:"Se Connecter", avatar : avatar});
 					return;
 				}
 				if (sesUsername == driver){
@@ -268,7 +278,8 @@ MongoClient.connect(url, function(err, db){
 				}
 				res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
 					gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
-					id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
+					id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter", avatar : avatar});
+				})
 			})
     })
 })
