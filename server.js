@@ -106,7 +106,8 @@ MongoClient.connect(url, function(err, db){
             console.log("Connection attempt with:")
             console.log(result[0].password);
             if(pass == reqPassword){ //test if the password given by the user is good
-                req.session.username = reqUsername;
+				req.session.username = reqUsername;
+				req.session.userId = result[0]._id;
                 console.log("User connected with:")
                 console.log(req.session.username);
                 console.log("-------------")
@@ -185,31 +186,24 @@ MongoClient.connect(url, function(err, db){
 			dbo.collection("account").find({username : sesUsername}).toArray(function(err, result){
 				if (sesUsername == undefined) {
 					res.render('Page2.html');
+					return;
 				}
 				else if (sesUsername == driver){
 					supAnnonces(result1[0].reserved, id);
 					dbo.collection("annonces").remove({_id : id});
 					res.redirect('/firstpage');
+					return;
 				}
 				else if (alreadyReserved(result[0].inscription,req.query.id)){
-					dbo.collection("annonces").update({_id : id}, {$pull:{reserved : sesUsername}});    // si la personne a déjà reservé --> se résile
+					dbo.collection("annonces").update({_id : id}, {$pull:{reserved : result[0]._id}});    // si la personne a déjà reservé --> se résile
 					dbo.collection("account").update({username : sesUsername}, {$pull:{inscription : id}});
-					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-					gsm: gsm, places: nPlaces+1, driver : driver, sesUsername : sesUsername, inscription : "se résilier",
-					id : req.query.id, exigence: requirements.toString()});
 				}else{
-					if (nPlaces == 0){     // cas ou il n'y a plus de place
-						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-						gsm: gsm, places: 0, driver : driver, sesUsername : sesUsername, inscription : "réserver",
-						id : req.query.id, exigence: requirements.toString()});
-					}else{
-						dbo.collection("annonces").update({_id : id}, {$push:{reserved : sesUsername}}); /// cas ou la personne reserve
-						dbo.collection("account").update({username : sesUsername}, {$push:{inscription : id}});
-						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-						gsm: gsm, places: nPlaces-1, driver : driver, sesUsername : sesUsername, inscription : "se résilier",
-						id : req.query.id, exigence: requirements.toString()});
+					if (nPlaces > 0){     // cas ou il n'y a plus de place
+					dbo.collection("annonces").update({_id : id}, {$push:{reserved : result[0]._id}}); /// cas ou la personne reserve
+					dbo.collection("account").update({username : sesUsername}, {$push:{inscription : id}});
 					}
 				}
+				res.redirect('/fifthpage?id=' + id);
 			})
 		})
 	})
@@ -237,7 +231,7 @@ MongoClient.connect(url, function(err, db){
 	app.get('/fourthpage', showInfos.fourthPage)
 
     app.get('/fifthpage', function(req, res) {
-        var sesUsername = req.session.username;
+		var sesUsername = req.session.username;
         var id = new mongo.ObjectId(req.query.id);
         dbo.collection("annonces").find({_id :id}).toArray(function(err, result){
 			if(err) throw err;
@@ -251,37 +245,30 @@ MongoClient.connect(url, function(err, db){
 			var requirements = result[0].requirements;
 			var nPlaces = (parseInt(result[0].places) - result[0].reserved.length);
 			var user = usernameHtml(sesUsername);
+			var inscription;
 				if(err) throw err;
 				if (sesUsername == undefined) {
-					var inscription = "Connectez vous pour reserver"
+					inscription = "Connectez vous pour reserver"
 					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
 					gsm: gsm, places: nPlaces, driver : driver, inscription : inscription,
 					id : req.query.id, exigence: requirements.toString(), Disco:"Se Connecter"});
+					return;
 				}
 				if (sesUsername == driver){
-					var inscription = "supprimer l'annonce";
-					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-					gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
-					id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
+					inscription = "supprimer l'annonce";
 				}
-				if (!alreadyReserved(reserved, req.query.id)){
+				if (!alreadyReserved(reserved, req.session.userId)){
 					if (parseInt(places) - reserved.length <= 0){
-						var inscription = "plus de place";
-						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-						gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
-						id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
+						inscription = "plus de place";
 					}else {
-						var inscription = "réserver";
-						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-						gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
-						id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
+						inscription = "réserver";
 					}
 				}else{
-					var inscription = "se résilier";
-					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
+					inscription = "se résilier";
+				}
+				res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
 					gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
 					id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter"});
-				}
 			})
     })
 })

@@ -1,3 +1,5 @@
+var mongo = require('mongodb');
+
 function getDate(){
     var options = {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     var today = new Date();
@@ -39,12 +41,21 @@ function formatQuery(query, searchParam){ //carefull inputs need to be in a list
     return format;
 }
 
-function annoncesprofilHtml(req, queryRes){
+function getIds(ids){
+    var output= [];
+    for(id in ids){
+        output.push(mongo.ObjectID(id));
+    }
+    console.log(output);
+    return output;
+}
+
+function annoncesprofilHtml(req, queryRes, testUsername=true){
 	sesUsername = req.session.username;
     let toRet = ""
-    //console.log(queryRes);
+    // console.log(queryRes);
     for(var i=0;i<queryRes.length;i++){
-		if (sesUsername == queryRes[i].user) {
+		if (sesUsername == queryRes[i].user || !testUsername) {
 			toRet += "<tr onClick='document.location=\"/fifthpage?id="+ queryRes[i]._id +"\"'><td>" + queryRes[i].ddepart + "</td><td>" + queryRes[i].ldepart + "</td><td>" + queryRes[i].larrivee + "</td><td>" + placeLeft(queryRes[i].reserved.length, queryRes[i].places) + "</td></tr>"
 		}
     }
@@ -83,6 +94,10 @@ exports.firstPage = function(req, res){
 
 exports.fourthPage = function(req, res){
     sesUsername = req.session.username;
+    if(sesUsername == null){
+        res.redirect('/secpage');
+        return;
+    }
     let queryRes, user, connect;
     // console.log(sesUsername)
     dbo.collection("account").find({username:sesUsername}).toArray(function(err, queryUsername){
@@ -98,9 +113,15 @@ exports.fourthPage = function(req, res){
         if(req.query.search != null){
             query.description = req.query.search;
         }
-        dbo.collection("annonces").find(query).toArray(function(err, result){
-            queryRes = result;
-            res.render("Page4.html",{username:user, annonces: annoncesprofilHtml(req, queryRes), Date:getDate(), Disco : connect});
+        dbo.collection("annonces").find({user: sesUsername}).toArray(function(err, result){
+            var annoncePost = (result.length == 0)? "<tr><td colspan='5' class='noResult'>Pas d'annonce trouvée</td></tr>" : annoncesprofilHtml(req, result);
+            // console.log(queryUsername[0].inscription);
+            dbo.collection("annonces").find({_id: {$in: queryUsername[0].inscription}}).toArray(function(err, annonceInscrit){
+                console.log(annonceInscrit);
+                console.log(queryUsername[0].inscription);
+                var annonceRegister = (annonceInscrit.length == 0)? "<tr><td colspan='5' class='noResult'>Pas d'annonce trouvée</td></tr>" : annoncesprofilHtml(req, annonceInscrit, false);
+                res.render("Page4.html",{username:user, annonces: annoncePost, annoncesInsc: annonceRegister, Date:getDate(), Disco : connect});
+            })
         })
         
     });
