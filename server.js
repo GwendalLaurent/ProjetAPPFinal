@@ -16,6 +16,12 @@ function getDate(){
 	return date;
 }
 
+function formatDate(rawDate){
+	var options = {year: 'numeric', month: 'long', day: 'numeric',  hour: 'numeric', minute: 'numeric'};
+	var date = new Date(rawDate);
+	return date.toLocaleDateString('en-US', options);
+}
+
 function alreadyReserved(reservedUser, id){
 	for (i = 0; i < reservedUser.length; i++){
 		if (id == reservedUser[i]){
@@ -91,7 +97,11 @@ MongoClient.connect(url, function(err, db){
         var reqPassword = req.query.password;
 
         dbo.collection("account").find({username:reqUsername}).toArray(function(err, result){ //finding in the DB the data for the username
-            if(err) throw err;
+			if(err) throw err;
+			if(result.length == 0){
+				res.render('Page2.html', {tried:"Ce nom d'utilisateur n'existe pas"});
+				return;
+			}
             var pass = result[0].password; //get the password from the DB
             console.log("Connection attempt with:")
             console.log(result[0].password);
@@ -138,7 +148,7 @@ MongoClient.connect(url, function(err, db){
 	app.get('/submit', function(req, res){
 		var Vdepart = req.query.Vdepart;
 		var Varrivee = req.query.Varrivee;
-		var DateDepart = req.query.DateDepart;
+		var DateDepart = formatDate(req.query.DateDepart);
 		var nbrPlaces = req.query.nbrPlaces;
         var sesUsername = req.session.username;
         var requirements = (Array.isArray(req.query.requirements)) ? req.query.requirements : [req.query.requirements];
@@ -185,7 +195,7 @@ MongoClient.connect(url, function(err, db){
 					dbo.collection("annonces").update({_id : id}, {$pull:{reserved : sesUsername}});    // si la personne a déjà reservé --> se résile
 					dbo.collection("account").update({username : sesUsername}, {$pull:{inscription : id}});
 					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-					gsm: gsm, places: nPlaces+1, driver : driver, sesUsername : sesUsername, inscription : "réserver",
+					gsm: gsm, places: nPlaces+1, driver : driver, sesUsername : sesUsername, inscription : "se résilier",
 					id : req.query.id, exigence: requirements.toString()});
 				}else{
 					if (nPlaces == 0){     // cas ou il n'y a plus de place
