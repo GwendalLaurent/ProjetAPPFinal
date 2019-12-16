@@ -144,9 +144,6 @@ MongoClient.connect(url, function(err, db){
 		var prenom = req.body.username;
 		var mdp = req.body.password;
 		var email = req.body.email;
-		var avatar = req.files.avatar;
-		var name = avatar.name;
-		var type = avatar.mimetype.split('/')[1];
 		if (user != ""){
 			dbo.collection("account").update({username: user}, {$set :{username: prenom}});
 		}
@@ -157,6 +154,9 @@ MongoClient.connect(url, function(err, db){
 			dbo.collection("account").update({username: user}, {$set : {email: email}});
 		}
 		if (req.files){
+			var avatar = req.files.avatar;
+			var name = avatar.name;
+			var type = avatar.mimetype.split('/')[1];
 			dbo.collection("account").find({username: user}).toArray(function(err, result){
 			dbo.collection("account").update({username: user}, {$set:{avatar: result[0]._id + "." + type}});
 			var pickType = fileType(result[0]._id);
@@ -188,7 +188,7 @@ MongoClient.connect(url, function(err, db){
 				dbo.collection("annonces").insert({user : sesUsername, gsm:GSM, ddepart : DateDepart, ldepart : Vdepart,
 				larrivee : Varrivee, reserved: [], places: nbrPlaces, requirements: requirements});
 				console.log ("added new annonce.");
-				res.render('Page3.html', {username: sesUsername, error1 : "Informations bien enregistrées !", Disco:"Se déconnecter"});
+				res.render('Page3.html', {username: usernameHtml(sesUsername), error1 : "Informations bien enregistrées !", Disco:"Se déconnecter"});
 			})
 		}
 	})
