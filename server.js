@@ -1,5 +1,6 @@
 var express = require('express');
 var upload = require('express-fileupload');
+var fs = require('fs');
 var consolidate = require('consolidate');
 var session = require('express-session');
 var app = express ()
@@ -36,10 +37,23 @@ function usernameHtml(username){
     return '<li class="pos"><a class="active" href="/fourthpage">'+ username + '</a></li>';
 }
 
-function supAnnonces(lst, id){
+function supInscrit(lst, id){
 	for (i = 0; i< lst.lenght; i++){
-			dbo.collection("account").update({username : lst[i]}, {$pull:{inscription : id}});
+			dbo.collection("account").update({_id : lst[i]}, {$pull:{inscription : id}});
 	}
+}
+function fileType(id){
+	fs.readdir(__dirname + '/static/avatar/', (err, files) => {
+		files.forEach(file => {
+			file = file.split(".");
+			var nameFile = file[0];
+			var typeFile = file[1];
+			if (namefile == id){
+				return typeFile;
+			}
+		});
+		return;
+	});
 }
 app.use(upload());
 MongoClient.connect(url, function(err, db){
@@ -144,14 +158,18 @@ MongoClient.connect(url, function(err, db){
 		}
 		if (req.files){
 			dbo.collection("account").find({username: user}).toArray(function(err, result){
-				console.log(result[0])
 			dbo.collection("account").update({username: user}, {$set:{avatar: result[0]._id + "." + type}});
+			var pickType = fileType(result[0]._id);
+			if(pickType != null){
+				fs.unlinkSync(__dirname + '/static/avatar/' + result[0]._id + "." + pickType);
+			}
 			avatar.mv(__dirname + '/static/avatar/' + result[0]._id + "." + type);
 			})
 		}
 		if (user != ""){
 			dbo.collection("account").update({username: user}, {$set : {username: prenom}});
 		}
+		res.redirect("/fourthpage")
 	})
 	app.get('/submit', function(req, res){
 		var Vdepart = req.query.Vdepart;
@@ -196,7 +214,7 @@ MongoClient.connect(url, function(err, db){
 					return;
 				}
 				else if (sesUsername == driver){
-					supAnnonces(result1[0].reserved, id);
+					supInscrit(result1[0].reserved, id);
 					dbo.collection("annonces").remove({_id : id});
 					res.redirect('/firstpage');
 					return;
