@@ -267,7 +267,7 @@ MongoClient.connect(url, function(err, db){
 				if (sesUsername == driver){
 					inscription = "supprimer l'annonce";
 				}
-				if (!alreadyReserved(reserved, req.session.userId)){
+				else if (!alreadyReserved(reserved, req.session.userId)){
 					if (parseInt(places) - reserved.length <= 0){
 						inscription = "plus de place";
 					}else {
