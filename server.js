@@ -272,7 +272,8 @@ MongoClient.connect(url, function(err, db){
 				dbo.collection("account").find({username :driver}).toArray(function(err, result1){
 					var id = result1[0].avatar;
 					var avatar = "avatar/" + id;
-					if (sesUsername == undefined) {
+					console.log(sesUsername);
+					if ((sesUsername == undefined) || (sesUsername == "")) {
 						inscription = "Connectez vous pour reserver"
 						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
 						gsm: gsm, places: nPlaces, driver : driver, inscription : inscription,
