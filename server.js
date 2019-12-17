@@ -48,7 +48,7 @@ function fileType(id){
 			file = file.split(".");
 			var nameFile = file[0];
 			var typeFile = file[1];
-			if (namefile == id){
+			if (nameFile == id){
 				return typeFile;
 			}
 		});
@@ -83,7 +83,10 @@ MongoClient.connect(url, function(err, db){
         var reqPassword = req.query.password;
         dbo.collection("account").find({username:reqUsername}).toArray(function(err, result){
             if(err) throw err;
-            if (result.length != 0){
+			if (req.query.cookies == undefined) {
+				res.render('Page2.html',{signError:"Veuillez accepter l'utilisation des cookies"})
+			}
+            else if (result.length != 0){
                 //accout already exist
                 console.log("Try to create a new account with an username which is already taken:");
                 console.log(reqUsername);
@@ -144,8 +147,18 @@ MongoClient.connect(url, function(err, db){
 		var prenom = req.body.username;
 		var mdp = req.body.password;
 		var email = req.body.email;
-		if (user != ""){
-			dbo.collection("account").update({username: user}, {$set :{username: prenom}});
+		if (prenom != ""){
+			dbo.collection("account").find({username:prenom}).toArray(function(err, result) {
+				if (result.length == 0) {
+					dbo.collection("account").update({username: user}, {$set :{username: prenom}});
+					dbo.collection("annonces").update({user: user}, {$set :{user: prenom}});
+					req.session.username = prenom;
+					user = prenom;
+				}
+				else {
+					res.redirect("/fourthpage?error=true");
+				}
+			})
 		}
 		if (mdp != ""){
 			dbo.collection("account").update({username: user}, {$set :{password : mdp}});
@@ -165,9 +178,6 @@ MongoClient.connect(url, function(err, db){
 			}
 			avatar.mv(__dirname + '/static/avatar/' + result[0]._id + "." + type);
 			})
-		}
-		if (user != ""){
-			dbo.collection("account").update({username: user}, {$set : {username: prenom}});
 		}
 		res.redirect("/fourthpage")
 	})
@@ -273,30 +283,32 @@ MongoClient.connect(url, function(err, db){
 			var inscription;
 				if(err) throw err;
 				dbo.collection("account").find({username :driver}).toArray(function(err, result1){
-				var id = result1[0].avatar;
-				var avatar = "avatar/" + id;
-				if (sesUsername == undefined) {
-					inscription = "Connectez vous pour reserver"
-					res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-					gsm: gsm, places: nPlaces, driver : driver, inscription : inscription,
-					id : req.query.id, exigence: requirements.toString(), Disco:"Se Connecter", avatar : avatar});
-					return;
-				}
-				if (sesUsername == driver){
-					inscription = "supprimer l'annonce";
-				}
-				else if (!alreadyReserved(reserved, req.session.userId)){
-					if (parseInt(places) - reserved.length <= 0){
-						inscription = "plus de place";
-					}else {
-						inscription = "réserver";
+					var id = result1[0].avatar;
+					var avatar = "avatar/" + id;
+					if (sesUsername == undefined) {
+						inscription = "Connectez vous pour reserver"
+						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
+						gsm: gsm, places: nPlaces, driver : driver, inscription : inscription,
+						id : req.query.id, exigence: requirements.toString(), Disco:"Se connecter", avatar : avatar});
+						return;
 					}
-				}else{
-					inscription = "se résilier";
-				}
-				res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
-					gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
-					id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter", avatar : avatar});
+					else {
+						if (sesUsername == driver){
+							inscription = "supprimer l'annonce";
+						}
+						else if (!alreadyReserved(reserved, req.session.userId)){
+							if (parseInt(places) - reserved.length <= 0){
+								inscription = "plus de place";
+							}else {
+								inscription = "réserver";
+							}
+						}else{
+							inscription = "se résilier";
+						}
+						res.render('Page5.html', {Date: getDate(), ddepart: ddepart, ldepart: ldepart, larrivee: larrivee,
+							gsm: gsm, places: nPlaces, driver : driver, username : user, inscription : inscription,
+							id : req.query.id, exigence: requirements.toString(), Disco:"Se déconnecter", avatar : avatar});
+					}
 				})
 			})
     })

@@ -94,6 +94,7 @@ exports.firstPage = function(req, res){
 
 exports.fourthPage = function(req, res){
     sesUsername = req.session.username;
+	var error = (req.query.error)? "Nom d'utilisateur déja utilisé" : "";
     if(sesUsername == null){
         res.redirect('/secpage');
         return;
@@ -120,7 +121,7 @@ exports.fourthPage = function(req, res){
                 console.log(annonceInscrit);
                 console.log(queryUsername[0].inscription);
                 var annonceRegister = (annonceInscrit.length == 0)? "<tr><td colspan='5' class='noResult'>Pas d'annonce trouvée</td></tr>" : annoncesprofilHtml(req, annonceInscrit, false);
-                res.render("Page4.html",{username:user, annonces: annoncePost, annoncesInsc: annonceRegister, Date:getDate(), Disco : connect});
+                res.render("Page4.html",{username:user, annonces: annoncePost, annoncesInsc: annonceRegister, Date:getDate(), Disco : connect, signError: error});
             })
         })
         

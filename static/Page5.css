@@ -31,11 +31,11 @@ height: 50px;
 border-radius: 10px;
 border: 1px solid black;
 text-align : center;
-background-color: #4CAF50;
+background-color: LightSlateGray;
 color: white;
 }
 button:hover{
-  background-color: #005f20;
+  background-color: SlateGray;
   border: 1px solid #004d1a;
   transition: background-color 0.3s;
 }
