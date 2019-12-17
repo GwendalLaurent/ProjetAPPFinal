@@ -94,7 +94,7 @@ exports.firstPage = function(req, res){
 
 exports.fourthPage = function(req, res){
     sesUsername = req.session.username;
-	var error = (req.query.error)? "Nom d'utilisateur déja utilisé" : "";
+    var error = (req.query.error)? "Nom d'utilisateur déja utilisé" : "";
     if(sesUsername == null){
         res.redirect('/secpage');
         return;
