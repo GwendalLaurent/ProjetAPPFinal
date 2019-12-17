@@ -43,12 +43,6 @@ function supInscrit(lst, id){
 	}
 }
 
-async function checkUsername(prenom){
-	dbo.collection("account").find({username:prenom}).toArray(function(err, result) {
-		return result.length != 0;
-	})
-}
-
 function fileType(id){
 	fs.readdir(__dirname + '/static/avatar/', (err, files) => {
 		files.forEach(file => {
@@ -149,23 +143,10 @@ MongoClient.connect(url, function(err, db){
         res.redirect('/secpage');
     })
 
-	app.post('/modif', async function(req, res, next){
+	app.post('/modif', function(req, res, next){
 		var user = req.session.username;
-		var prenom = req.body.username;
 		var mdp = req.body.password;
 		var email = req.body.email;
-		if (prenom != ""){
-			var usernameAlreadyIn = await checkUsername(prenom);
-			if (usernameAlreadyIn == 0) {
-				dbo.collection("account").update({username: user}, {$set :{username: prenom}});
-				dbo.collection("annonces").update({user: user}, {$set :{user: prenom}});
-				req.session.username = prenom;
-				user = prenom;
-			}
-			else {
-				res.redirect("/fourthpage?error=true");
-			}
-		}
 		if (mdp != ""){
 			dbo.collection("account").update({username: user}, {$set :{password : mdp}});
 		}
